@@ -2,13 +2,25 @@
 <html lang="bn">
 
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Murad Bari Fund v2</title>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
 
-<link rel="stylesheet" href="style.css">
+<title>
+  Murad Bari Fund v2
+</title>
+
+<link
+  rel="stylesheet"
+  href="style.css"
+>
+
 </head>
+
 
 <body>
 
@@ -17,18 +29,25 @@
      LOGIN
 ========================= -->
 
-<div id="loginPage" class="login">
+<div
+  id="loginPage"
+  class="login"
+>
 
   <div class="login-card">
 
-    <div class="logo">🏠</div>
+    <div class="logo">
+      🏠
+    </div>
+
 
     <h1 data-t="title">
       মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড
     </h1>
 
+
     <p data-t="subtitle">
-      Social Welfare & Fund Management System
+      সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা
     </p>
 
 
@@ -49,14 +68,16 @@
 
     <button
       onclick="doLogin()"
-      data-t="login">
+      data-t="login"
+    >
       লগইন
     </button>
 
 
     <button
       class="outline"
-      onclick="toggleLang()">
+      onclick="toggleLang()"
+    >
       বাংলা / English
     </button>
 
@@ -70,10 +91,13 @@
 
 
 <!-- =========================
-     APPLICATION
+     APP
 ========================= -->
 
-<div id="app" hidden>
+<div
+  id="app"
+  hidden
+>
 
 
 <!-- HEADER -->
@@ -95,14 +119,16 @@
 
     <button
       class="small"
-      onclick="toggleLang()">
+      onclick="toggleLang()"
+    >
       বাংলা / English
     </button>
 
 
     <button
       class="small outline"
-      onclick="location.reload()">
+      onclick="location.reload()"
+    >
       Logout
     </button>
 
@@ -120,82 +146,86 @@
 
   <button
     onclick="show('dashboard')"
-    data-t="dashboard">
+    data-t="dashboard"
+  >
     ড্যাশবোর্ড
   </button>
 
 
   <button
     onclick="show('activities')"
-    data-t="activities">
+    data-t="activities"
+  >
     কার্যক্রম
   </button>
 
 
   <button
     onclick="show('collections')"
-    data-t="collections">
+    data-t="collections"
+  >
     দাতা ও সংগ্রহ
   </button>
 
 
   <button
     onclick="show('expenses')"
-    data-t="expenses">
+    data-t="expenses"
+  >
     খরচ ও সহায়তা
   </button>
 
 
   <button
     onclick="show('custody')"
-    data-t="custody">
+    data-t="custody"
+  >
     ফান্ড কোথায়
   </button>
 
 
   <button
     onclick="show('reports')"
-    data-t="reports">
+    data-t="reports"
+  >
     রিপোর্ট
   </button>
 
 
   <button
     onclick="show('security')"
-    data-t="security">
+    data-t="security"
+  >
     নিরাপত্তা
   </button>
 
 
-  <!-- ADMIN MENU -->
-
   <button
     onclick="show('users')"
-    data-t="users">
+    data-t="users"
+  >
     👥 ব্যবহারকারী
   </button>
 
 
   <button
     onclick="show('audit')"
-    data-t="audit">
+    data-t="audit"
+  >
     📋 অডিট লগ
   </button>
 
 
   <button
     onclick="show('settings')"
-    data-t="settings">
+    data-t="settings"
+  >
     ⚙️ সেটিংস
   </button>
 
 </nav>
 
 
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <main>
 
@@ -214,46 +244,62 @@
   <div class="stats">
 
     <div class="stat">
+
       💰
+
       <span data-t="totalCollection">
         মোট সংগ্রহ
       </span>
+
       <b id="totalCollection">
         ৳0
       </b>
+
     </div>
 
 
     <div class="stat">
+
       💸
+
       <span data-t="totalExpense">
         মোট খরচ
       </span>
+
       <b id="totalExpense">
         ৳0
       </b>
+
     </div>
 
 
     <div class="stat">
+
       💵
+
       <span data-t="currentFund">
         বর্তমান ফান্ড
       </span>
+
       <b id="balance">
         ৳0
       </b>
+
     </div>
 
 
     <div class="stat">
+
       👥
+
       <span data-t="donors">
         দাতা
       </span>
+
       <b id="donorCount">
         0
       </b>
+
     </div>
 
   </div>
@@ -277,7 +323,10 @@
      ACTIVITIES
 ========================= -->
 
-<section id="activities" hidden>
+<section
+  id="activities"
+  hidden
+>
 
   <div class="panel">
 
@@ -288,7 +337,8 @@
 
     <button
       onclick="addDemo('Activities')"
-      data-t="add">
+      data-t="add"
+    >
       + যোগ করুন
     </button>
 
@@ -305,7 +355,10 @@
      COLLECTIONS
 ========================= -->
 
-<section id="collections" hidden>
+<section
+  id="collections"
+  hidden
+>
 
   <div class="panel">
 
@@ -316,7 +369,8 @@
 
     <button
       onclick="addDemo('Collections')"
-      data-t="add">
+      data-t="add"
+    >
       + যোগ করুন
     </button>
 
@@ -333,7 +387,10 @@
      EXPENSES
 ========================= -->
 
-<section id="expenses" hidden>
+<section
+  id="expenses"
+  hidden
+>
 
   <div class="panel">
 
@@ -344,7 +401,8 @@
 
     <button
       onclick="addDemo('Expenses')"
-      data-t="add">
+      data-t="add"
+    >
       + যোগ করুন
     </button>
 
@@ -361,7 +419,10 @@
      FUND CUSTODY
 ========================= -->
 
-<section id="custody" hidden>
+<section
+  id="custody"
+  hidden
+>
 
   <div class="panel">
 
@@ -372,7 +433,8 @@
 
     <button
       onclick="addDemo('FundCustody')"
-      data-t="add">
+      data-t="add"
+    >
       + যোগ করুন
     </button>
 
@@ -389,7 +451,10 @@
      REPORTS
 ========================= -->
 
-<section id="reports" hidden>
+<section
+  id="reports"
+  hidden
+>
 
   <div class="panel">
 
@@ -399,11 +464,13 @@
 
 
     <p>
-      PDF / Print / Report Generator
+      PDF / Print Report
     </p>
 
 
-    <button onclick="window.print()">
+    <button
+      onclick="window.print()"
+    >
       🖨️ Print
     </button>
 
@@ -417,7 +484,10 @@
      SECURITY
 ========================= -->
 
-<section id="security" hidden>
+<section
+  id="security"
+  hidden
+>
 
   <div class="panel">
 
@@ -427,20 +497,22 @@
 
 
     <p>
-      Admin ID + Password + Confirmation
-      বাধ্যতামূলক।
+      Restore এবং Reset-এর জন্য
+      Admin authentication প্রয়োজন।
     </p>
 
 
     <button
-      onclick="protectedAction('RESTORE')">
+      onclick="protectedAction('RESTORE')"
+    >
       ♻️ Restore
     </button>
 
 
     <button
       class="danger"
-      onclick="protectedAction('RESET')">
+      onclick="protectedAction('RESET')"
+    >
       🔄 Reset
     </button>
 
@@ -451,34 +523,31 @@
 
 
 <!-- =========================
-     USERS MANAGEMENT
+     USERS
 ========================= -->
 
-<section id="users" hidden>
+<section
+  id="users"
+  hidden
+>
 
   <div class="panel">
 
-    <div class="section-header">
-
-      <div>
-
-        <h2 data-t="users">
-          👥 ব্যবহারকারী
-        </h2>
-
-        <p>
-          Admin এবং User account পরিচালনা
-        </p>
-
-      </div>
+    <h2 data-t="users">
+      👥 ব্যবহারকারী
+    </h2>
 
 
-      <button
-        onclick="addUser()">
-        ➕ Add User
-      </button>
+    <p>
+      Admin এবং User account পরিচালনা
+    </p>
 
-    </div>
+
+    <button
+      onclick="addUser()"
+    >
+      ➕ Add User
+    </button>
 
 
     <div id="usersTable"></div>
@@ -493,25 +562,21 @@
      AUDIT LOG
 ========================= -->
 
-<section id="audit" hidden>
+<section
+  id="audit"
+  hidden
+>
 
   <div class="panel">
 
-    <div class="section-header">
+    <h2 data-t="audit">
+      📋 অডিট লগ
+    </h2>
 
-      <div>
 
-        <h2 data-t="audit">
-          📋 অডিট লগ
-        </h2>
-
-        <p>
-          কে কখন কোন কাজ করেছে তার পূর্ণ হিসাব
-        </p>
-
-      </div>
-
-    </div>
+    <p>
+      কে কখন কোন কাজ করেছে তার পূর্ণ হিসাব।
+    </p>
 
 
     <div id="auditTable"></div>
@@ -526,7 +591,10 @@
      SETTINGS
 ========================= -->
 
-<section id="settings" hidden>
+<section
+  id="settings"
+  hidden
+>
 
   <div class="panel">
 
@@ -535,58 +603,49 @@
     </h2>
 
 
-    <div class="settings-form">
+    <label data-t="systemName">
+      সিস্টেমের নাম
+    </label>
 
 
-      <label>
-        <span data-t="systemName">
-          সিস্টেমের নাম
-        </span>
-      </label>
+    <input
+      id="systemName"
+      value="মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড"
+    >
 
 
-      <input
-        id="systemName"
-        value="মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড"
-      >
+    <label data-t="language">
+      ভাষা
+    </label>
 
 
+    <select id="systemLanguage">
 
-      <label>
-        <span data-t="language">
-          ভাষা
-        </span>
-      </label>
+      <option value="bn">
+        বাংলা
+      </option>
 
+      <option value="en">
+        English
+      </option>
 
-      <select id="systemLanguage">
-
-        <option value="bn">
-          বাংলা
-        </option>
-
-        <option value="en">
-          English
-        </option>
-
-      </select>
+    </select>
 
 
-      <br><br>
+    <br><br>
 
 
-      <button
-        onclick="saveSettings()">
+    <button
+      onclick="saveSettings()"
+    >
 
-        💾
-        <span data-t="save">
-          সংরক্ষণ
-        </span>
+      💾
 
-      </button>
+      <span data-t="save">
+        সংরক্ষণ
+      </span>
 
-
-    </div>
+    </button>
 
   </div>
 
@@ -598,12 +657,10 @@
 </div>
 
 
+<script
+  src="app.js"
+></script>
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
-<script src="app.js"></script>
 
 </body>
 
