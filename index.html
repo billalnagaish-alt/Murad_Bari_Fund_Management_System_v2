@@ -198,7 +198,18 @@
   >
     নিরাপত্তা
   </button>
+  
+<button onclick="show('users')" data-t="users">
+  👥 ব্যবহারকারী
+</button>
 
+<button onclick="show('audit')" data-t="audit">
+  📋 অডিট লগ
+</button>
+
+<button onclick="show('settings')" data-t="settings">
+  ⚙️ সেটিংস
+</button>
 
   <button
     onclick="show('users')"
@@ -651,7 +662,66 @@
 
 </section>
 
+<section id="users" hidden>
+  <div class="panel">
+    <h2 data-t="users">👥 ব্যবহারকারী</h2>
 
+    <button onclick="addUser()">
+      ➕ Add User
+    </button>
+
+    <div id="usersTable"></div>
+  </div>
+</section>
+
+
+<section id="audit" hidden>
+  <div class="panel">
+    <h2 data-t="audit">📋 অডিট লগ</h2>
+
+    <div id="auditTable"></div>
+  </div>
+</section>
+
+
+<section id="settings" hidden>
+  <div class="panel">
+
+    <h2 data-t="settings">
+      ⚙️ সেটিংস
+    </h2>
+
+    <label>System Name</label>
+
+    <input
+      id="systemName"
+      value="মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড"
+    >
+
+    <br><br>
+
+    <label>Language</label>
+
+    <select id="systemLanguage">
+
+      <option value="bn">
+        বাংলা
+      </option>
+
+      <option value="en">
+        English
+      </option>
+
+    </select>
+
+    <br><br>
+
+    <button onclick="saveSettings()">
+      💾 Save Settings
+    </button>
+
+  </div>
+</section>
 </main>
 
 </div>
