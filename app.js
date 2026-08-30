@@ -1,4 +1,19 @@
+/* =========================================
+   MURAD BARI FUND MANAGEMENT
+   GitHub Frontend + Google Apps Script API
+========================================= */
+
+
+/* ========= API URL ========= */
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbwym4UGgPQqmffw634faS0NplbfKLlsizzFI6cvO2l0nErvB1RPlHncmmeBXaTrOP6oCA/exec";
+
+
+/* ========= APP STATE ========= */
+
 let lang = "bn";
+
 let currentUser = null;
 
 let data = {
@@ -9,317 +24,520 @@ let data = {
   custody: [],
   transfers: [],
   users: [],
-  auditLog: []
+  auditLog: [],
+  settings: []
 };
 
 
-/* =========================
-   TRANSLATIONS
-========================= */
+/* ========= TRANSLATION ========= */
 
 const T = {
 
   bn: {
-    title: "মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড",
-    subtitle: "সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা",
 
-    login: "লগইন",
-    dashboard: "ড্যাশবোর্ড",
-    activities: "কার্যক্রম",
-    collections: "দাতা ও সংগ্রহ",
-    expenses: "খরচ ও সহায়তা",
-    custody: "ফান্ড কোথায়",
-    reports: "রিপোর্ট",
-    security: "নিরাপত্তা",
+    title:
+      "মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড",
 
-    users: "ব্যবহারকারী",
-    audit: "অডিট লগ",
-    settings: "সেটিংস",
+    subtitle:
+      "সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা",
 
-    totalCollection: "মোট সংগ্রহ",
-    totalExpense: "মোট খরচ",
-    currentFund: "বর্তমান ফান্ড",
-    donors: "দাতা",
-    yearSummary: "বছরভিত্তিক কার্যক্রম",
+    login:
+      "লগইন",
 
-    add: "+ যোগ করুন",
-    edit: "এডিট",
-    delete: "ডিলিট",
-    save: "সংরক্ষণ",
-    cancel: "বাতিল",
-    confirmDelete: "আপনি কি এই রেকর্ডটি মুছে ফেলতে চান?",
-    adminId: "অ্যাডমিন ID",
-    adminPassword: "অ্যাডমিন Password",
+    dashboard:
+      "ড্যাশবোর্ড",
 
-    systemName: "সিস্টেমের নাম",
-    language: "ভাষা",
+    activities:
+      "কার্যক্রম",
 
-    userId: "User ID",
-    userName: "নাম",
-    role: "Role",
-    active: "Active",
-    password: "Password",
+    collections:
+      "দাতা ও সংগ্রহ",
 
-    action: "কাজ",
-    entity: "বিষয়",
-    entityId: "Record ID",
-    details: "বিস্তারিত",
-    dateTime: "তারিখ ও সময়"
+    expenses:
+      "খরচ ও সহায়তা",
+
+    custody:
+      "ফান্ড কোথায়",
+
+    reports:
+      "রিপোর্ট",
+
+    security:
+      "নিরাপত্তা",
+
+    users:
+      "ব্যবহারকারী",
+
+    audit:
+      "অডিট লগ",
+
+    settings:
+      "সেটিংস",
+
+    totalCollection:
+      "মোট সংগ্রহ",
+
+    totalExpense:
+      "মোট খরচ",
+
+    currentFund:
+      "বর্তমান ফান্ড",
+
+    donors:
+      "দাতা",
+
+    yearSummary:
+      "বছরভিত্তিক কার্যক্রম",
+
+    add:
+      "+ যোগ করুন",
+
+    edit:
+      "এডিট",
+
+    delete:
+      "ডিলিট",
+
+    save:
+      "সংরক্ষণ",
+
+    cancel:
+      "বাতিল",
+
+    adminId:
+      "অ্যাডমিন ID",
+
+    adminPassword:
+      "অ্যাডমিন Password",
+
+    confirmDelete:
+      "আপনি কি এই রেকর্ডটি মুছে ফেলতে চান?",
+
+    userId:
+      "User ID",
+
+    userName:
+      "নাম",
+
+    role:
+      "Role",
+
+    active:
+      "Active",
+
+    action:
+      "কাজ",
+
+    entity:
+      "বিষয়",
+
+    entityId:
+      "Record ID",
+
+    details:
+      "বিস্তারিত",
+
+    dateTime:
+      "তারিখ ও সময়",
+
+    systemName:
+      "সিস্টেমের নাম",
+
+    language:
+      "ভাষা"
+
   },
 
+
   en: {
-    title: "Murad Bari Social Welfare Fund",
-    subtitle: "Social Welfare & Fund Management System",
 
-    login: "Login",
-    dashboard: "Dashboard",
-    activities: "Activities",
-    collections: "Donors & Collection",
-    expenses: "Expenses & Assistance",
-    custody: "Fund Custody",
-    reports: "Reports",
-    security: "Security",
+    title:
+      "Murad Bari Social Welfare Fund",
 
-    users: "Users",
-    audit: "Audit Log",
-    settings: "Settings",
+    subtitle:
+      "Social Welfare & Fund Management System",
 
-    totalCollection: "Total Collection",
-    totalExpense: "Total Expense",
-    currentFund: "Current Fund",
-    donors: "Donors",
-    yearSummary: "Year-wise Activities",
+    login:
+      "Login",
 
-    add: "+ Add",
-    edit: "Edit",
-    delete: "Delete",
-    save: "Save",
-    cancel: "Cancel",
-    confirmDelete: "Do you want to delete this record?",
-    adminId: "Admin ID",
-    adminPassword: "Admin Password",
+    dashboard:
+      "Dashboard",
 
-    systemName: "System Name",
-    language: "Language",
+    activities:
+      "Activities",
 
-    userId: "User ID",
-    userName: "Name",
-    role: "Role",
-    active: "Active",
-    password: "Password",
+    collections:
+      "Donors & Collection",
 
-    action: "Action",
-    entity: "Entity",
-    entityId: "Record ID",
-    details: "Details",
-    dateTime: "Date & Time"
+    expenses:
+      "Expenses & Assistance",
+
+    custody:
+      "Fund Custody",
+
+    reports:
+      "Reports",
+
+    security:
+      "Security",
+
+    users:
+      "Users",
+
+    audit:
+      "Audit Log",
+
+    settings:
+      "Settings",
+
+    totalCollection:
+      "Total Collection",
+
+    totalExpense:
+      "Total Expense",
+
+    currentFund:
+      "Current Fund",
+
+    donors:
+      "Donors",
+
+    yearSummary:
+      "Year-wise Activities",
+
+    add:
+      "+ Add",
+
+    edit:
+      "Edit",
+
+    delete:
+      "Delete",
+
+    save:
+      "Save",
+
+    cancel:
+      "Cancel",
+
+    adminId:
+      "Admin ID",
+
+    adminPassword:
+      "Admin Password",
+
+    confirmDelete:
+      "Do you want to delete this record?",
+
+    userId:
+      "User ID",
+
+    userName:
+      "Name",
+
+    role:
+      "Role",
+
+    active:
+      "Active",
+
+    action:
+      "Action",
+
+    entity:
+      "Entity",
+
+    entityId:
+      "Record ID",
+
+    details:
+      "Details",
+
+    dateTime:
+      "Date & Time",
+
+    systemName:
+      "System Name",
+
+    language:
+      "Language"
+
   }
 
 };
 
 
-/* =========================
+/* =========================================
+   API REQUEST
+========================================= */
+
+async function api(action, payload = {}) {
+
+  try {
+
+    const response = await fetch(API_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+
+      body: JSON.stringify({
+        action,
+        ...payload
+      })
+
+    });
+
+
+    const result =
+      await response.json();
+
+
+    return result;
+
+  } catch (error) {
+
+    console.error(error);
+
+    return {
+      success: false,
+      message:
+        "API connection failed: " +
+        error.message
+    };
+
+  }
+}
+
+
+/* =========================================
    LANGUAGE
-========================= */
+========================================= */
 
 function toggleLang() {
 
-  lang = lang === "bn" ? "en" : "bn";
+  lang =
+    lang === "bn"
+      ? "en"
+      : "bn";
+
 
   document
     .querySelectorAll("[data-t]")
-    .forEach(function (e) {
+    .forEach(function(el) {
 
-      const key = e.dataset.t;
+      const key =
+        el.dataset.t;
 
       if (T[lang][key]) {
-        e.textContent = T[lang][key];
+
+        el.textContent =
+          T[lang][key];
+
       }
 
     });
 
-  const brand = document.getElementById("brand");
+
+  const brand =
+    document.getElementById("brand");
 
   if (brand) {
-    brand.textContent = T[lang].title;
+
+    brand.textContent =
+      T[lang].title;
+
   }
+
 }
 
 
-/* =========================
+/* =========================================
    LOGIN
-========================= */
+========================================= */
 
-function doLogin() {
+async function doLogin() {
 
-  const id = document
-    .getElementById("loginId")
-    .value
-    .trim();
+  const id =
+    document
+      .getElementById("loginId")
+      .value
+      .trim();
 
-  const p = document
-    .getElementById("loginPass")
-    .value;
 
-  if (!id || !p) {
+  const password =
+    document
+      .getElementById("loginPass")
+      .value;
 
-    document.getElementById("msg").textContent =
-      lang === "bn"
-        ? "ID এবং Password দিন"
-        : "Enter ID and Password";
+
+  if (!id || !password) {
+
+    document
+      .getElementById("msg")
+      .textContent =
+        lang === "bn"
+          ? "ID এবং Password দিন"
+          : "Enter ID and Password";
 
     return;
+
   }
 
 
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      if (r.success) {
-
-        currentUser = r.user;
-
-        const loginPage =
-          document.getElementById("loginPage");
-
-        const app =
-          document.getElementById("app");
-
-        if (loginPage) loginPage.hidden = true;
-        if (app) app.hidden = false;
-
-
-        const user =
-          document.getElementById("user");
-
-        if (user) {
-          user.textContent =
-            r.user.name + " (" + r.user.role + ")";
-        }
-
-
-        load();
-
-      } else {
-
-        document.getElementById("msg").textContent =
-          r.message;
-
+  const result =
+    await api(
+      "login",
+      {
+        id,
+        password
       }
+    );
 
-    })
 
-    .withFailureHandler(function (err) {
+  if (result.success) {
 
-      alert(err.message || err);
+    currentUser =
+      result.user;
 
-    })
 
-    .login(id, p);
+    document
+      .getElementById("loginPage")
+      .hidden = true;
+
+
+    document
+      .getElementById("app")
+      .hidden = false;
+
+
+    document
+      .getElementById("user")
+      .textContent =
+        currentUser.name +
+        " (" +
+        currentUser.role +
+        ")";
+
+
+    load();
+
+  } else {
+
+    document
+      .getElementById("msg")
+      .textContent =
+        result.message;
+
+  }
+
 }
 
 
-/* =========================
-   LOAD ALL DATA
-========================= */
+/* =========================================
+   LOAD
+========================================= */
 
-function load() {
+async function load() {
 
-  google.script.run
+  const result =
+    await api("getData");
 
-    .withSuccessHandler(function (r) {
 
-      data = r || {};
+  if (!result.success) {
 
-      data.activities ||= [];
-      data.donors ||= [];
-      data.collections ||= [];
-      data.expenses ||= [];
-      data.custody ||= [];
-      data.transfers ||= [];
-      data.users ||= [];
-      data.auditLog ||= [];
+    alert(result.message);
 
-      render();
+    return;
 
-    })
+  }
 
-    .withFailureHandler(function (err) {
 
-      alert(err.message || err);
+  data = result;
 
-    })
 
-    .getData();
+  render();
+
 }
 
 
-/* =========================
+/* =========================================
    MONEY
-========================= */
+========================================= */
 
-function money(n) {
+function money(value) {
 
   return "৳" +
-    Number(n || 0)
+    Number(value || 0)
       .toLocaleString();
+
 }
 
 
-/* =========================
-   DASHBOARD
-========================= */
+/* =========================================
+   RENDER
+========================================= */
 
 function render() {
 
-  const collection =
-    data.collections.reduce(
-      (s, x) => s + Number(x.amount || 0),
-      0
-    );
-
-  const expense =
-    data.expenses.reduce(
-      (s, x) => s + Number(x.amount || 0),
-      0
-    );
-
-
-  const balance = collection - expense;
-
-
   const totalCollection =
-    document.getElementById("totalCollection");
+    data.collections.reduce(
+      (sum, x) =>
+        sum +
+        Number(x.amount || 0),
+      0
+    );
+
 
   const totalExpense =
-    document.getElementById("totalExpense");
+    data.expenses.reduce(
+      (sum, x) =>
+        sum +
+        Number(x.amount || 0),
+      0
+    );
 
-  const balanceEl =
-    document.getElementById("balance");
 
-  const donorCount =
-    document.getElementById("donorCount");
+  const balance =
+    totalCollection -
+    totalExpense;
 
 
-  if (totalCollection)
-    totalCollection.textContent = money(collection);
+  setText(
+    "totalCollection",
+    money(totalCollection)
+  );
 
-  if (totalExpense)
-    totalExpense.textContent = money(expense);
 
-  if (balanceEl)
-    balanceEl.textContent = money(balance);
+  setText(
+    "totalExpense",
+    money(totalExpense)
+  );
 
-  if (donorCount)
-    donorCount.textContent =
-      data.donors.length;
+
+  setText(
+    "balance",
+    money(balance)
+  );
+
+
+  setText(
+    "donorCount",
+    data.donors.length
+  );
 
 
   table(
     "activitiesTable",
     data.activities,
-    ["year", "name", "purpose", "status"],
+    [
+      "year",
+      "name",
+      "purpose",
+      "status"
+    ],
     "Activities"
   );
 
@@ -327,7 +545,13 @@ function render() {
   table(
     "collectionsTable",
     data.collections,
-    ["date", "donorId", "amount", "method", "note"],
+    [
+      "date",
+      "donorId",
+      "amount",
+      "method",
+      "note"
+    ],
     "Collections"
   );
 
@@ -365,18 +589,41 @@ function render() {
 
 
   renderUsers();
+
   renderAuditLog();
+
 }
 
 
-/* =========================
-   TABLE
-========================= */
+/* =========================================
+   SET TEXT
+========================================= */
 
-function table(id, rows, cols, entity) {
+function setText(id, value) {
 
   const el =
     document.getElementById(id);
+
+  if (el)
+    el.textContent = value;
+
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+function table(
+  id,
+  rows,
+  cols,
+  entity
+) {
+
+  const el =
+    document.getElementById(id);
+
 
   if (!el) return;
 
@@ -384,53 +631,65 @@ function table(id, rows, cols, entity) {
   if (!rows || !rows.length) {
 
     el.innerHTML =
-      "<p>" +
-      (lang === "bn"
-        ? "কোনো তথ্য নেই।"
-        : "No data yet.") +
-      "</p>";
+      `<p>${
+        lang === "bn"
+          ? "কোনো তথ্য নেই।"
+          : "No data yet."
+      }</p>`;
 
     return;
+
   }
 
 
-  let html = `
-    <table>
-      <thead>
-        <tr>
-  `;
+  let html =
+    "<table><thead><tr>";
 
 
-  cols.forEach(function (c) {
+  cols.forEach(function(col) {
 
-    html += `<th>${escapeHtml(c)}</th>`;
+    html +=
+      "<th>" +
+      escapeHtml(col) +
+      "</th>";
 
   });
 
 
-  html += "<th>Action</th></tr></thead><tbody>";
+  html +=
+    "<th>Action</th>";
+
+  html +=
+    "</tr></thead><tbody>";
 
 
-  rows.forEach(function (r) {
+  rows.forEach(function(row) {
 
     html += "<tr>";
 
 
-    cols.forEach(function (c) {
+    cols.forEach(function(col) {
 
       html +=
-        `<td>${escapeHtml(r[c] ?? "")}</td>`;
+        "<td>" +
+        escapeHtml(
+          row[col] ?? ""
+        ) +
+        "</td>";
 
     });
 
 
     html += `
-      <td>
-        <button onclick="editRecord('${entity}','${r.id}')">
+      <td class="actions">
+        <button
+          onclick="editRecord('${entity}','${escapeAttr(row.id)}')">
           ${T[lang].edit}
         </button>
 
-        <button onclick="deleteRecord('${entity}','${r.id}')">
+        <button
+          class="danger"
+          onclick="deleteRecord('${entity}','${escapeAttr(row.id)}')">
           ${T[lang].delete}
         </button>
       </td>
@@ -442,181 +701,222 @@ function table(id, rows, cols, entity) {
   });
 
 
-  html += "</tbody></table>";
+  html +=
+    "</tbody></table>";
+
 
   el.innerHTML = html;
+
 }
 
 
-/* =========================
-   EDIT RECORD
-========================= */
+/* =========================================
+   EDIT
+========================================= */
 
-function editRecord(sheetName, id) {
+async function editRecord(
+  sheetName,
+  id
+) {
 
-  const rows = getRowsBySheet(sheetName);
+  const rows =
+    getRowsBySheet(sheetName);
+
 
   const record =
-    rows.find(x => String(x.id) === String(id));
+    rows.find(
+      x =>
+        String(x.id) ===
+        String(id)
+    );
+
 
   if (!record) {
 
-    alert(
-      lang === "bn"
-        ? "রেকর্ড পাওয়া যায়নি।"
-        : "Record not found."
-    );
+    alert("Record not found");
 
     return;
+
   }
 
 
   const fields =
     Object.keys(record)
-      .filter(k =>
-        k !== "id" &&
-        k !== "createdAt"
-      );
+      .filter(function(key) {
+
+        return (
+          key !== "id" &&
+          key !== "createdAt"
+        );
+
+      });
 
 
-  const obj = {};
+  const updated = {};
 
 
   for (const field of fields) {
 
-    let value = prompt(
-      field,
-      record[field] ?? ""
-    );
+    const value =
+      prompt(
+        field,
+        record[field] ?? ""
+      );
 
 
-    if (value === null) {
+    if (value === null)
       return;
-    }
 
 
-    obj[field] = value;
+    updated[field] =
+      value;
+
   }
 
 
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      alert(r.message);
-
-      if (r.success) {
-        load();
+  const result =
+    await api(
+      "updateRecord",
+      {
+        sheetName,
+        id,
+        obj: updated,
+        userId:
+          currentUser.id
       }
-
-    })
-
-    .withFailureHandler(function (err) {
-
-      alert(err.message || err);
-
-    })
-
-    .updateRecord(
-      sheetName,
-      id,
-      obj,
-      currentUser.id
     );
+
+
+  alert(result.message);
+
+
+  if (result.success)
+    load();
+
 }
 
 
-/* =========================
-   DELETE RECORD
-========================= */
+/* =========================================
+   DELETE
+========================================= */
 
-function deleteRecord(sheetName, id) {
+async function deleteRecord(
+  sheetName,
+  id
+) {
 
-  if (!confirm(T[lang].confirmDelete)) {
-    return;
-  }
+  if (
+    !confirm(
+      T[lang].confirmDelete
+    )
+  ) return;
 
 
   const adminId =
-    prompt(T[lang].adminId);
+    prompt(
+      T[lang].adminId
+    );
 
-  if (adminId === null) return;
+
+  if (adminId === null)
+    return;
 
 
   const password =
-    prompt(T[lang].adminPassword);
-
-  if (password === null) return;
-
-
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      alert(r.message);
-
-      if (r.success) {
-        load();
-      }
-
-    })
-
-    .withFailureHandler(function (err) {
-
-      alert(err.message || err);
-
-    })
-
-    .deleteRecord(
-      sheetName,
-      id,
-      adminId,
-      password
+    prompt(
+      T[lang].adminPassword
     );
+
+
+  if (password === null)
+    return;
+
+
+  const result =
+    await api(
+      "deleteRecord",
+      {
+        sheetName,
+        id,
+        userId: adminId,
+        adminPassword: password
+      }
+    );
+
+
+  alert(result.message);
+
+
+  if (result.success)
+    load();
+
 }
 
 
-/* =========================
-   GET ROWS
-========================= */
+/* =========================================
+   ROW MAP
+========================================= */
 
 function getRowsBySheet(sheetName) {
 
   const map = {
 
-    Activities: data.activities,
+    Activities:
+      data.activities,
 
-    Donors: data.donors,
+    Donors:
+      data.donors,
 
-    Collections: data.collections,
+    Collections:
+      data.collections,
 
-    Expenses: data.expenses,
+    Expenses:
+      data.expenses,
 
-    FundCustody: data.custody,
+    FundCustody:
+      data.custody,
 
-    FundTransfers: data.transfers,
+    FundTransfers:
+      data.transfers,
 
-    Users: data.users,
+    Users:
+      data.users,
 
-    AuditLog: data.auditLog
+    AuditLog:
+      data.auditLog
 
   };
 
 
   return map[sheetName] || [];
+
 }
 
 
-/* =========================
+/* =========================================
    USERS
-========================= */
+========================================= */
 
 function renderUsers() {
 
   const el =
-    document.getElementById("usersTable");
+    document.getElementById(
+      "usersTable"
+    );
+
 
   if (!el) return;
+
+
+  if (!currentUser ||
+      currentUser.role !== "admin") {
+
+    el.innerHTML =
+      "<p>Admin access required.</p>";
+
+    return;
+
+  }
 
 
   if (!data.users.length) {
@@ -625,6 +925,7 @@ function renderUsers() {
       "<p>No users found.</p>";
 
     return;
+
   }
 
 
@@ -632,10 +933,10 @@ function renderUsers() {
     <table>
       <thead>
         <tr>
-          <th>${T[lang].userId}</th>
-          <th>${T[lang].userName}</th>
-          <th>${T[lang].role}</th>
-          <th>${T[lang].active}</th>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Active</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -643,33 +944,59 @@ function renderUsers() {
   `;
 
 
-  data.users.forEach(function (u) {
+  data.users.forEach(function(user) {
 
     html += `
       <tr>
 
-        <td>${escapeHtml(u.id)}</td>
+        <td>
+          ${escapeHtml(user.id)}
+        </td>
 
-        <td>${escapeHtml(u.name)}</td>
+        <td>
+          ${escapeHtml(user.name)}
+        </td>
 
-        <td>${escapeHtml(u.role)}</td>
+        <td>
+          ${escapeHtml(user.role)}
+        </td>
 
-        <td>${u.active ? "✅" : "❌"}</td>
+        <td>
+          ${
+            user.active
+              ? "✅"
+              : "❌"
+          }
+        </td>
 
         <td>
 
           <button
-            onclick="changeUserStatus('${escapeAttr(u.id)}',${!u.active})">
-            ${u.active ? "Deactivate" : "Activate"}
+            onclick="changeUserStatus(
+              '${escapeAttr(user.id)}',
+              ${!user.active}
+            )">
+            ${
+              user.active
+                ? "Deactivate"
+                : "Activate"
+            }
           </button>
 
+
           <button
-            onclick="resetUserPassword('${escapeAttr(u.id)}')">
+            onclick="resetUserPassword(
+              '${escapeAttr(user.id)}'
+            )">
             Reset Password
           </button>
 
+
           <button
-            onclick="deleteUser('${escapeAttr(u.id)}')">
+            class="danger"
+            onclick="deleteUser(
+              '${escapeAttr(user.id)}'
+            )">
             Delete
           </button>
 
@@ -681,26 +1008,46 @@ function renderUsers() {
   });
 
 
-  html += "</tbody></table>";
+  html +=
+    "</tbody></table>";
+
 
   el.innerHTML = html;
+
 }
 
 
-/* =========================
+/* =========================================
    ADD USER
-========================= */
+========================================= */
 
-function addUser() {
+async function addUser() {
+
+  if (
+    !currentUser ||
+    currentUser.role !== "admin"
+  ) {
+
+    alert("Admin access required.");
+
+    return;
+
+  }
+
 
   const adminPassword =
-    prompt(T[lang].adminPassword);
+    prompt(
+      T[lang].adminPassword
+    );
 
-  if (adminPassword === null) return;
+
+  if (adminPassword === null)
+    return;
 
 
   const id =
     prompt("User ID");
+
 
   if (!id) return;
 
@@ -708,84 +1055,116 @@ function addUser() {
   const name =
     prompt("Name");
 
-  if (name === null) return;
+
+  if (name === null)
+    return;
 
 
   const password =
     prompt("Password");
 
+
   if (!password) return;
 
 
   const role =
-    prompt("Role: admin / user", "user");
+    prompt(
+      "Role: admin / user",
+      "user"
+    );
 
 
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      alert(r.message);
-
-      if (r.success) load();
-
-    })
-
-    .addUser(
-      currentUser.id,
-      adminPassword,
+  const result =
+    await api(
+      "addUser",
       {
-        id: id,
-        name: name,
-        password: password,
-        role: role || "user",
-        active: true
+        adminId:
+          currentUser.id,
+
+        adminPassword,
+
+        user: {
+          id,
+          name,
+          password,
+          role:
+            role || "user",
+          active: true
+        }
       }
     );
+
+
+  alert(result.message);
+
+
+  if (result.success)
+    load();
+
 }
 
 
-/* =========================
+/* =========================================
    USER STATUS
-========================= */
+========================================= */
 
-function changeUserStatus(userId, active) {
+async function changeUserStatus(
+  userId,
+  active
+) {
 
   const password =
-    prompt(T[lang].adminPassword);
-
-  if (password === null) return;
-
-
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      alert(r.message);
-
-      if (r.success) load();
-
-    })
-
-    .setUserStatus(
-      currentUser.id,
-      password,
-      userId,
-      active
+    prompt(
+      T[lang].adminPassword
     );
+
+
+  if (password === null)
+    return;
+
+
+  const result =
+    await api(
+      "setUserStatus",
+      {
+        adminId:
+          currentUser.id,
+
+        adminPassword:
+          password,
+
+        userId,
+
+        active
+      }
+    );
+
+
+  alert(result.message);
+
+
+  if (result.success)
+    load();
+
 }
 
 
-/* =========================
+/* =========================================
    RESET PASSWORD
-========================= */
+========================================= */
 
-function resetUserPassword(userId) {
+async function resetUserPassword(
+  userId
+) {
 
   const adminPassword =
-    prompt(T[lang].adminPassword);
+    prompt(
+      T[lang].adminPassword
+    );
 
-  if (adminPassword === null) return;
+
+  if (adminPassword === null)
+    return;
 
 
   const newPassword =
@@ -795,31 +1174,39 @@ function resetUserPassword(userId) {
         : "Enter new password"
     );
 
-  if (!newPassword) return;
+
+  if (!newPassword)
+    return;
 
 
-  google.script.run
+  const result =
+    await api(
+      "resetUserPassword",
+      {
+        adminId:
+          currentUser.id,
 
-    .withSuccessHandler(function (r) {
+        adminPassword,
 
-      alert(r.message);
+        userId,
 
-    })
-
-    .resetUserPassword(
-      currentUser.id,
-      adminPassword,
-      userId,
-      newPassword
+        newPassword
+      }
     );
+
+
+  alert(result.message);
+
 }
 
 
-/* =========================
+/* =========================================
    DELETE USER
-========================= */
+========================================= */
 
-function deleteUser(userId) {
+async function deleteUser(
+  userId
+) {
 
   if (
     !confirm(
@@ -827,45 +1214,69 @@ function deleteUser(userId) {
         ? "এই User মুছে ফেলবেন?"
         : "Delete this user?"
     )
-  ) {
-    return;
-  }
+  ) return;
 
 
   const password =
-    prompt(T[lang].adminPassword);
-
-  if (password === null) return;
-
-
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      alert(r.message);
-
-      if (r.success) load();
-
-    })
-
-    .deleteUser(
-      currentUser.id,
-      password,
-      userId
+    prompt(
+      T[lang].adminPassword
     );
+
+
+  if (password === null)
+    return;
+
+
+  const result =
+    await api(
+      "deleteUser",
+      {
+        adminId:
+          currentUser.id,
+
+        adminPassword:
+          password,
+
+        userId
+      }
+    );
+
+
+  alert(result.message);
+
+
+  if (result.success)
+    load();
+
 }
 
 
-/* =========================
+/* =========================================
    AUDIT LOG
-========================= */
+========================================= */
 
 function renderAuditLog() {
 
   const el =
-    document.getElementById("auditTable");
+    document.getElementById(
+      "auditTable"
+    );
+
 
   if (!el) return;
+
+
+  if (
+    !currentUser ||
+    currentUser.role !== "admin"
+  ) {
+
+    el.innerHTML =
+      "<p>Admin access required.</p>";
+
+    return;
+
+  }
 
 
   if (!data.auditLog.length) {
@@ -874,6 +1285,7 @@ function renderAuditLog() {
       "<p>No audit records.</p>";
 
     return;
+
   }
 
 
@@ -883,12 +1295,14 @@ function renderAuditLog() {
       <thead>
 
         <tr>
-          <th>${T[lang].dateTime}</th>
-          <th>${T[lang].userId}</th>
-          <th>${T[lang].action}</th>
-          <th>${T[lang].entity}</th>
-          <th>${T[lang].entityId}</th>
-          <th>${T[lang].details}</th>
+
+          <th>Date</th>
+          <th>User</th>
+          <th>Action</th>
+          <th>Entity</th>
+          <th>Record ID</th>
+          <th>Details</th>
+
         </tr>
 
       </thead>
@@ -900,22 +1314,46 @@ function renderAuditLog() {
   data.auditLog
     .slice()
     .reverse()
-    .forEach(function (a) {
+    .forEach(function(log) {
 
       html += `
         <tr>
 
-          <td>${escapeHtml(a.createdAt ?? "")}</td>
+          <td>
+            ${escapeHtml(
+              log.createdAt ?? ""
+            )}
+          </td>
 
-          <td>${escapeHtml(a.userId ?? "")}</td>
+          <td>
+            ${escapeHtml(
+              log.userId ?? ""
+            )}
+          </td>
 
-          <td>${escapeHtml(a.action ?? "")}</td>
+          <td>
+            ${escapeHtml(
+              log.action ?? ""
+            )}
+          </td>
 
-          <td>${escapeHtml(a.entity ?? "")}</td>
+          <td>
+            ${escapeHtml(
+              log.entity ?? ""
+            )}
+          </td>
 
-          <td>${escapeHtml(a.entityId ?? "")}</td>
+          <td>
+            ${escapeHtml(
+              log.entityId ?? ""
+            )}
+          </td>
 
-          <td>${escapeHtml(a.details ?? "")}</td>
+          <td>
+            ${escapeHtml(
+              log.details ?? ""
+            )}
+          </td>
 
         </tr>
       `;
@@ -923,209 +1361,226 @@ function renderAuditLog() {
     });
 
 
-  html += "</tbody></table>";
+  html +=
+    "</tbody></table>";
+
 
   el.innerHTML = html;
+
 }
 
 
-/* =========================
+/* =========================================
    SETTINGS
-========================= */
+========================================= */
 
-function saveSettings() {
+async function saveSettings() {
 
-  const systemName =
-    document.getElementById("systemName");
+  if (
+    !currentUser ||
+    currentUser.role !== "admin"
+  ) {
 
-  const language =
-    document.getElementById("systemLanguage");
+    alert("Admin access required.");
 
-
-  if (!systemName || !language) {
     return;
+
   }
 
 
-  const password =
-    prompt(T[lang].adminPassword);
-
-  if (password === null) return;
-
-
-  const settings = {
-
-    systemName:
-      systemName.value.trim(),
-
-    language:
-      language.value
-
-  };
-
-
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      alert(
-        r.message ||
-        "Settings saved."
-      );
-
-    })
-
-    .saveSettings(
-      currentUser.id,
-      password,
-      settings
+  const systemName =
+    document.getElementById(
+      "systemName"
     );
+
+
+  const systemLanguage =
+    document.getElementById(
+      "systemLanguage"
+    );
+
+
+  const adminPassword =
+    prompt(
+      T[lang].adminPassword
+    );
+
+
+  if (adminPassword === null)
+    return;
+
+
+  const result =
+    await api(
+      "saveSettings",
+      {
+        adminId:
+          currentUser.id,
+
+        adminPassword,
+
+        settings: {
+
+          systemName:
+            systemName
+              ? systemName.value
+              : "",
+
+          language:
+            systemLanguage
+              ? systemLanguage.value
+              : lang
+
+        }
+      }
+    );
+
+
+  alert(result.message);
+
 }
 
 
-/* =========================
-   PROTECTED ACTION
-========================= */
+/* =========================================
+   NAVIGATION
+========================================= */
 
-function protectedAction(action) {
+function show(id) {
+
+  document
+    .querySelectorAll(
+      "main > section"
+    )
+    .forEach(function(section) {
+
+      section.hidden = true;
+
+    });
+
+
+  const target =
+    document.getElementById(id);
+
+
+  if (target)
+    target.hidden = false;
+
+
+  if (
+    id === "users" ||
+    id === "audit" ||
+    id === "settings"
+  ) {
+
+    if (
+      !currentUser ||
+      currentUser.role !== "admin"
+    ) {
+
+      alert(
+        lang === "bn"
+          ? "শুধু Admin এই অংশ দেখতে পারবেন।"
+          : "Only Admin can access this section."
+      );
+
+      target.hidden = true;
+
+      return;
+
+    }
+
+  }
+
+}
+
+
+/* =========================================
+   PROTECTED ACTION
+========================================= */
+
+async function protectedAction(
+  action
+) {
 
   const id =
-    prompt(T[lang].adminId);
+    prompt(
+      T[lang].adminId
+    );
 
-  if (id === null) return;
+
+  if (id === null)
+    return;
 
 
-  const p =
-    prompt(T[lang].adminPassword);
+  const password =
+    prompt(
+      T[lang].adminPassword
+    );
 
-  if (p === null) return;
+
+  if (password === null)
+    return;
 
 
   if (
     !confirm(
       "Confirm " + action + "?"
     )
-  ) {
-    return;
-  }
+  ) return;
 
 
-  google.script.run
-
-    .withSuccessHandler(function (r) {
-
-      alert(r.message);
-
-    })
-
-    .adminAction(
-      id,
-      p,
-      action
-    );
-}
-
-
-/* =========================
-   NAVIGATION
-========================= */
-
-function show(id) {
-
-  document
-    .querySelectorAll("main>section")
-    .forEach(function (s) {
-
-      s.hidden = true;
-
-    });
-
-
-  const el =
-    document.getElementById(id);
-
-  if (el) {
-    el.hidden = false;
-  }
-
-
-  if (id === "users") {
-
-    if (
-      !currentUser ||
-      currentUser.role !== "admin"
-    ) {
-
-      alert(
-        lang === "bn"
-          ? "শুধু Admin এই অংশ দেখতে পারবেন।"
-          : "Only Admin can access this section."
-      );
-
-      return;
-    }
-
-    load();
-
-  }
-
-
-  if (id === "audit") {
-
-    if (
-      !currentUser ||
-      currentUser.role !== "admin"
-    ) {
-
-      alert(
-        lang === "bn"
-          ? "শুধু Admin এই অংশ দেখতে পারবেন।"
-          : "Only Admin can access this section."
-      );
-
-      return;
-    }
-
-    load();
-
-  }
+  alert(
+    lang === "bn"
+      ? action +
+        " এর জন্য backend প্রস্তুত আছে।"
+      : "Backend is ready for " +
+        action
+  );
 
 }
 
 
-/* =========================
-   HTML SECURITY
-========================= */
+/* =========================================
+   HTML ESCAPE
+========================================= */
 
 function escapeHtml(value) {
 
   return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
 }
 
 
 function escapeAttr(value) {
 
   return String(value)
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'");
-}
-
-
-/* =========================
-   DEMO ADD
-========================= */
-
-function addDemo(sheet) {
-
-  alert(
-    lang === "bn"
-      ? "Database/API প্রস্তুত আছে। এখন এই অংশের পূর্ণ input form যুক্ত করা যাবে।"
-      : "Database/API is ready. The full input form can now be connected."
-  );
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    );
 
 }
