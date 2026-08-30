@@ -1,19 +1,7 @@
-/* =========================================
-   MURAD BARI FUND MANAGEMENT
-   GitHub Frontend + Google Apps Script API
-========================================= */
-
-
-/* ========= API URL ========= */
-
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbwym4UGgPQqmffw634faS0NplbfKLlsizzFI6cvO2l0nErvB1RPlHncmmeBXaTrOP6oCA/exec";
-
-
-/* ========= APP STATE ========= */
+"https://script.google.com/macros/s/AKfycbwym4UGgPQqmffw634faS0NplbfKLlsizzFI6cvO2l0nErvB1RPlHncmmeBXaTrOP6oCA/exec";
 
 let lang = "bn";
-
 let currentUser = null;
 
 let data = {
@@ -29,292 +17,184 @@ let data = {
 };
 
 
-/* ========= TRANSLATION ========= */
+/* ==========================
+   TRANSLATION
+========================== */
 
 const T = {
 
   bn: {
-
-    title:
-      "মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড",
-
-    subtitle:
-      "সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা",
-
-    login:
-      "লগইন",
-
-    dashboard:
-      "ড্যাশবোর্ড",
-
-    activities:
-      "কার্যক্রম",
-
-    collections:
-      "দাতা ও সংগ্রহ",
-
-    expenses:
-      "খরচ ও সহায়তা",
-
-    custody:
-      "ফান্ড কোথায়",
-
-    reports:
-      "রিপোর্ট",
-
-    security:
-      "নিরাপত্তা",
-
-    users:
-      "ব্যবহারকারী",
-
-    audit:
-      "অডিট লগ",
-
-    settings:
-      "সেটিংস",
-
-    totalCollection:
-      "মোট সংগ্রহ",
-
-    totalExpense:
-      "মোট খরচ",
-
-    currentFund:
-      "বর্তমান ফান্ড",
-
-    donors:
-      "দাতা",
-
-    yearSummary:
-      "বছরভিত্তিক কার্যক্রম",
-
-    add:
-      "+ যোগ করুন",
-
-    edit:
-      "এডিট",
-
-    delete:
-      "ডিলিট",
-
-    save:
-      "সংরক্ষণ",
-
-    cancel:
-      "বাতিল",
-
-    adminId:
-      "অ্যাডমিন ID",
-
-    adminPassword:
-      "অ্যাডমিন Password",
-
-    confirmDelete:
-      "আপনি কি এই রেকর্ডটি মুছে ফেলতে চান?",
-
-    userId:
-      "User ID",
-
-    userName:
-      "নাম",
-
-    role:
-      "Role",
-
-    active:
-      "Active",
-
-    action:
-      "কাজ",
-
-    entity:
-      "বিষয়",
-
-    entityId:
-      "Record ID",
-
-    details:
-      "বিস্তারিত",
-
-    dateTime:
-      "তারিখ ও সময়",
-
-    systemName:
-      "সিস্টেমের নাম",
-
-    language:
-      "ভাষা"
-
+    title: "মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড",
+    subtitle: "সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা",
+    login: "লগইন",
+    dashboard: "ড্যাশবোর্ড",
+    activities: "কার্যক্রম",
+    collections: "দাতা ও সংগ্রহ",
+    expenses: "খরচ ও সহায়তা",
+    custody: "ফান্ড কোথায়",
+    reports: "রিপোর্ট",
+    security: "নিরাপত্তা",
+    users: "ব্যবহারকারী",
+    audit: "অডিট লগ",
+    settings: "সেটিংস",
+    totalCollection: "মোট সংগ্রহ",
+    totalExpense: "মোট খরচ",
+    currentFund: "বর্তমান ফান্ড",
+    donors: "দাতা",
+    yearSummary: "বছরভিত্তিক কার্যক্রম",
+    add: "+ যোগ করুন",
+    edit: "এডিট",
+    delete: "ডিলিট",
+    save: "সংরক্ষণ"
   },
 
-
   en: {
-
-    title:
-      "Murad Bari Social Welfare Fund",
-
-    subtitle:
-      "Social Welfare & Fund Management System",
-
-    login:
-      "Login",
-
-    dashboard:
-      "Dashboard",
-
-    activities:
-      "Activities",
-
-    collections:
-      "Donors & Collection",
-
-    expenses:
-      "Expenses & Assistance",
-
-    custody:
-      "Fund Custody",
-
-    reports:
-      "Reports",
-
-    security:
-      "Security",
-
-    users:
-      "Users",
-
-    audit:
-      "Audit Log",
-
-    settings:
-      "Settings",
-
-    totalCollection:
-      "Total Collection",
-
-    totalExpense:
-      "Total Expense",
-
-    currentFund:
-      "Current Fund",
-
-    donors:
-      "Donors",
-
-    yearSummary:
-      "Year-wise Activities",
-
-    add:
-      "+ Add",
-
-    edit:
-      "Edit",
-
-    delete:
-      "Delete",
-
-    save:
-      "Save",
-
-    cancel:
-      "Cancel",
-
-    adminId:
-      "Admin ID",
-
-    adminPassword:
-      "Admin Password",
-
-    confirmDelete:
-      "Do you want to delete this record?",
-
-    userId:
-      "User ID",
-
-    userName:
-      "Name",
-
-    role:
-      "Role",
-
-    active:
-      "Active",
-
-    action:
-      "Action",
-
-    entity:
-      "Entity",
-
-    entityId:
-      "Record ID",
-
-    details:
-      "Details",
-
-    dateTime:
-      "Date & Time",
-
-    systemName:
-      "System Name",
-
-    language:
-      "Language"
-
+    title: "Murad Bari Social Welfare Fund",
+    subtitle: "Social Welfare & Fund Management System",
+    login: "Login",
+    dashboard: "Dashboard",
+    activities: "Activities",
+    collections: "Donors & Collection",
+    expenses: "Expenses & Assistance",
+    custody: "Fund Custody",
+    reports: "Reports",
+    security: "Security",
+    users: "Users",
+    audit: "Audit Log",
+    settings: "Settings",
+    totalCollection: "Total Collection",
+    totalExpense: "Total Expense",
+    currentFund: "Current Fund",
+    donors: "Donors",
+    yearSummary: "Year-wise Activities",
+    add: "+ Add",
+    edit: "Edit",
+    delete: "Delete",
+    save: "Save"
   }
-
 };
 
 
-/* =========================================
-   API REQUEST
-========================================= */
+/* ==========================
+   JSONP API
+========================== */
 
-async function api(action, payload = {}) {
+function api(action, payload = {}) {
 
-  try {
+  return new Promise(function(resolve) {
 
-    const response = await fetch(API_URL, {
-
-      method: "POST",
-
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-
-      body: JSON.stringify({
-        action,
-        ...payload
-      })
-
-    });
+    const callbackName =
+      "apiCallback_" +
+      Date.now() +
+      "_" +
+      Math.floor(
+        Math.random() * 100000
+      );
 
 
-    const result =
-      await response.json();
+    const script =
+      document.createElement("script");
 
 
-    return result;
+    window[callbackName] =
+      function(result) {
 
-  } catch (error) {
+        try {
+          resolve(result);
+        } finally {
 
-    console.error(error);
+          delete window[callbackName];
 
-    return {
-      success: false,
-      message:
-        "API connection failed: " +
-        error.message
-    };
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
 
-  }
+        }
+
+      };
+
+
+    const params =
+      new URLSearchParams();
+
+
+    params.set(
+      "action",
+      action
+    );
+
+
+    params.set(
+      "callback",
+      callbackName
+    );
+
+
+    Object.keys(payload)
+      .forEach(function(key) {
+
+        let value =
+          payload[key];
+
+
+        if (
+          typeof value ===
+          "object"
+        ) {
+
+          value =
+            JSON.stringify(value);
+
+        }
+
+
+        params.set(
+          key,
+          value
+        );
+
+      });
+
+
+    script.src =
+      API_URL +
+      "?" +
+      params.toString();
+
+
+    script.onerror =
+      function() {
+
+        delete window[callbackName];
+
+        if (script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+
+
+        resolve({
+
+          success: false,
+
+          message:
+            "Google Apps Script connection failed."
+
+        });
+
+      };
+
+
+    document.body.appendChild(
+      script
+    );
+
+  });
 }
 
 
-/* =========================================
+/* ==========================
    LANGUAGE
-========================================= */
+========================== */
 
 function toggleLang() {
 
@@ -325,7 +205,9 @@ function toggleLang() {
 
 
   document
-    .querySelectorAll("[data-t]")
+    .querySelectorAll(
+      "[data-t]"
+    )
     .forEach(function(el) {
 
       const key =
@@ -342,7 +224,10 @@ function toggleLang() {
 
 
   const brand =
-    document.getElementById("brand");
+    document.getElementById(
+      "brand"
+    );
+
 
   if (brand) {
 
@@ -354,33 +239,37 @@ function toggleLang() {
 }
 
 
-/* =========================================
+/* ==========================
    LOGIN
-========================================= */
+========================== */
 
 async function doLogin() {
 
   const id =
     document
-      .getElementById("loginId")
+      .getElementById(
+        "loginId"
+      )
       .value
       .trim();
 
 
   const password =
     document
-      .getElementById("loginPass")
+      .getElementById(
+        "loginPass"
+      )
       .value;
 
 
   if (!id || !password) {
 
     document
-      .getElementById("msg")
+      .getElementById(
+        "msg"
+      )
       .textContent =
-        lang === "bn"
-          ? "ID এবং Password দিন"
-          : "Enter ID and Password";
+        "ID এবং Password দিন";
 
     return;
 
@@ -397,53 +286,64 @@ async function doLogin() {
     );
 
 
-  if (result.success) {
-
-    currentUser =
-      result.user;
-
+  if (!result.success) {
 
     document
-      .getElementById("loginPage")
-      .hidden = true;
-
-
-    document
-      .getElementById("app")
-      .hidden = false;
-
-
-    document
-      .getElementById("user")
-      .textContent =
-        currentUser.name +
-        " (" +
-        currentUser.role +
-        ")";
-
-
-    load();
-
-  } else {
-
-    document
-      .getElementById("msg")
+      .getElementById(
+        "msg"
+      )
       .textContent =
         result.message;
 
+    return;
+
   }
+
+
+  currentUser =
+    result.user;
+
+
+  document
+    .getElementById(
+      "loginPage"
+    )
+    .hidden = true;
+
+
+  document
+    .getElementById(
+      "app"
+    )
+    .hidden = false;
+
+
+  document
+    .getElementById(
+      "user"
+    )
+    .textContent =
+      currentUser.name +
+      " (" +
+      currentUser.role +
+      ")";
+
+
+  load();
 
 }
 
 
-/* =========================================
+/* ==========================
    LOAD
-========================================= */
+========================== */
 
 async function load() {
 
   const result =
-    await api("getData");
+    await api(
+      "getData"
+    );
 
 
   if (!result.success) {
@@ -455,7 +355,8 @@ async function load() {
   }
 
 
-  data = result;
+  data =
+    result;
 
 
   render();
@@ -463,63 +364,54 @@ async function load() {
 }
 
 
-/* =========================================
-   MONEY
-========================================= */
-
-function money(value) {
-
-  return "৳" +
-    Number(value || 0)
-      .toLocaleString();
-
-}
-
-
-/* =========================================
+/* ==========================
    RENDER
-========================================= */
+========================== */
 
 function render() {
 
-  const totalCollection =
-    data.collections.reduce(
-      (sum, x) =>
-        sum +
-        Number(x.amount || 0),
-      0
-    );
+  const collection =
+    data.collections
+      .reduce(
+        (s, x) =>
+          s +
+          Number(
+            x.amount || 0
+          ),
+        0
+      );
 
 
-  const totalExpense =
-    data.expenses.reduce(
-      (sum, x) =>
-        sum +
-        Number(x.amount || 0),
-      0
-    );
-
-
-  const balance =
-    totalCollection -
-    totalExpense;
+  const expense =
+    data.expenses
+      .reduce(
+        (s, x) =>
+          s +
+          Number(
+            x.amount || 0
+          ),
+        0
+      );
 
 
   setText(
     "totalCollection",
-    money(totalCollection)
+    money(collection)
   );
 
 
   setText(
     "totalExpense",
-    money(totalExpense)
+    money(expense)
   );
 
 
   setText(
     "balance",
-    money(balance)
+    money(
+      collection -
+      expense
+    )
   );
 
 
@@ -529,7 +421,7 @@ function render() {
   );
 
 
-  table(
+  renderTable(
     "activitiesTable",
     data.activities,
     [
@@ -542,7 +434,7 @@ function render() {
   );
 
 
-  table(
+  renderTable(
     "collectionsTable",
     data.collections,
     [
@@ -556,7 +448,7 @@ function render() {
   );
 
 
-  table(
+  renderTable(
     "expensesTable",
     data.expenses,
     [
@@ -571,7 +463,7 @@ function render() {
   );
 
 
-  table(
+  renderTable(
     "custodyTable",
     data.custody,
     [
@@ -590,52 +482,35 @@ function render() {
 
   renderUsers();
 
-  renderAuditLog();
+  renderAudit();
 
 }
 
 
-/* =========================================
-   SET TEXT
-========================================= */
-
-function setText(id, value) {
-
-  const el =
-    document.getElementById(id);
-
-  if (el)
-    el.textContent = value;
-
-}
-
-
-/* =========================================
+/* ==========================
    TABLE
-========================================= */
+========================== */
 
-function table(
-  id,
+function renderTable(
+  elementId,
   rows,
-  cols,
-  entity
+  columns,
+  sheetName
 ) {
 
   const el =
-    document.getElementById(id);
+    document.getElementById(
+      elementId
+    );
 
 
   if (!el) return;
 
 
-  if (!rows || !rows.length) {
+  if (!rows.length) {
 
     el.innerHTML =
-      `<p>${
-        lang === "bn"
-          ? "কোনো তথ্য নেই।"
-          : "No data yet."
-      }</p>`;
+      "<p>কোনো তথ্য নেই।</p>";
 
     return;
 
@@ -646,7 +521,7 @@ function table(
     "<table><thead><tr>";
 
 
-  cols.forEach(function(col) {
+  columns.forEach(function(col) {
 
     html +=
       "<th>" +
@@ -668,7 +543,7 @@ function table(
     html += "<tr>";
 
 
-    cols.forEach(function(col) {
+    columns.forEach(function(col) {
 
       html +=
         "<td>" +
@@ -680,23 +555,18 @@ function table(
     });
 
 
-    html += `
-      <td class="actions">
-        <button
-          onclick="editRecord('${entity}','${escapeAttr(row.id)}')">
-          ${T[lang].edit}
-        </button>
+    html +=
+      "<td>" +
 
-        <button
-          class="danger"
-          onclick="deleteRecord('${entity}','${escapeAttr(row.id)}')">
-          ${T[lang].delete}
-        </button>
-      </td>
-    `;
+      `<button onclick="editRecord('${sheetName}','${escapeAttr(row.id)}')">✏️ ${T[lang].edit}</button>` +
+
+      ` <button class="danger" onclick="deleteRecord('${sheetName}','${escapeAttr(row.id)}')">🗑️ ${T[lang].delete}</button>` +
+
+      "</td>";
 
 
-    html += "</tr>";
+    html +=
+      "</tr>";
 
   });
 
@@ -705,14 +575,15 @@ function table(
     "</tbody></table>";
 
 
-  el.innerHTML = html;
+  el.innerHTML =
+    html;
 
 }
 
 
-/* =========================================
+/* ==========================
    EDIT
-========================================= */
+========================== */
 
 async function editRecord(
   sheetName,
@@ -720,58 +591,57 @@ async function editRecord(
 ) {
 
   const rows =
-    getRowsBySheet(sheetName);
+    getRows(sheetName);
 
 
   const record =
-    rows.find(
-      x =>
-        String(x.id) ===
-        String(id)
-    );
+    rows.find(function(x) {
+
+      return String(x.id) ===
+        String(id);
+
+    });
 
 
   if (!record) {
 
-    alert("Record not found");
+    alert(
+      "Record not found"
+    );
 
     return;
 
   }
 
 
-  const fields =
-    Object.keys(record)
-      .filter(function(key) {
+  const obj = {};
 
-        return (
-          key !== "id" &&
-          key !== "createdAt"
+
+  Object.keys(record)
+    .forEach(function(field) {
+
+      if (
+        field === "id" ||
+        field === "createdAt"
+      )
+        return;
+
+
+      const value =
+        prompt(
+          field,
+          record[field] ?? ""
         );
 
-      });
+
+      if (value === null)
+        return;
 
 
-  const updated = {};
+      obj[field] =
+        value;
 
-
-  for (const field of fields) {
-
-    const value =
-      prompt(
-        field,
-        record[field] ?? ""
-      );
-
-
-    if (value === null)
-      return;
-
-
-    updated[field] =
-      value;
-
-  }
+    });
 
 
   const result =
@@ -780,14 +650,16 @@ async function editRecord(
       {
         sheetName,
         id,
-        obj: updated,
+        obj,
         userId:
           currentUser.id
       }
     );
 
 
-  alert(result.message);
+  alert(
+    result.message
+  );
 
 
   if (result.success)
@@ -796,9 +668,9 @@ async function editRecord(
 }
 
 
-/* =========================================
+/* ==========================
    DELETE
-========================================= */
+========================== */
 
 async function deleteRecord(
   sheetName,
@@ -807,24 +679,15 @@ async function deleteRecord(
 
   if (
     !confirm(
-      T[lang].confirmDelete
+      "আপনি কি এই রেকর্ডটি ডিলিট করতে চান?"
     )
-  ) return;
-
-
-  const adminId =
-    prompt(
-      T[lang].adminId
-    );
-
-
-  if (adminId === null)
+  )
     return;
 
 
   const password =
     prompt(
-      T[lang].adminPassword
+      "Admin Password দিন"
     );
 
 
@@ -838,13 +701,17 @@ async function deleteRecord(
       {
         sheetName,
         id,
-        userId: adminId,
-        adminPassword: password
+        userId:
+          currentUser.id,
+        adminPassword:
+          password
       }
     );
 
 
-  alert(result.message);
+  alert(
+    result.message
+  );
 
 
   if (result.success)
@@ -853,49 +720,9 @@ async function deleteRecord(
 }
 
 
-/* =========================================
-   ROW MAP
-========================================= */
-
-function getRowsBySheet(sheetName) {
-
-  const map = {
-
-    Activities:
-      data.activities,
-
-    Donors:
-      data.donors,
-
-    Collections:
-      data.collections,
-
-    Expenses:
-      data.expenses,
-
-    FundCustody:
-      data.custody,
-
-    FundTransfers:
-      data.transfers,
-
-    Users:
-      data.users,
-
-    AuditLog:
-      data.auditLog
-
-  };
-
-
-  return map[sheetName] || [];
-
-}
-
-
-/* =========================================
+/* ==========================
    USERS
-========================================= */
+========================== */
 
 function renderUsers() {
 
@@ -908,8 +735,10 @@ function renderUsers() {
   if (!el) return;
 
 
-  if (!currentUser ||
-      currentUser.role !== "admin") {
+  if (
+    !currentUser ||
+    currentUser.role !== "admin"
+  ) {
 
     el.innerHTML =
       "<p>Admin access required.</p>";
@@ -919,18 +748,8 @@ function renderUsers() {
   }
 
 
-  if (!data.users.length) {
-
-    el.innerHTML =
-      "<p>No users found.</p>";
-
-    return;
-
-  }
-
-
-  let html = `
-    <table>
+  let html =
+    `<table>
       <thead>
         <tr>
           <th>User ID</th>
@@ -940,131 +759,92 @@ function renderUsers() {
           <th>Action</th>
         </tr>
       </thead>
-      <tbody>
-  `;
+      <tbody>`;
 
 
-  data.users.forEach(function(user) {
+  data.users.forEach(
+    function(user) {
 
-    html += `
-      <tr>
+      html +=
+        `<tr>
+          <td>${escapeHtml(user.id)}</td>
+          <td>${escapeHtml(user.name)}</td>
+          <td>${escapeHtml(user.role)}</td>
+          <td>${user.active ? "✅" : "❌"}</td>
+          <td>
 
-        <td>
-          ${escapeHtml(user.id)}
-        </td>
+            <button onclick="changeUserStatus('${escapeAttr(user.id)}',${!user.active})">
+              ${user.active ? "Deactivate" : "Activate"}
+            </button>
 
-        <td>
-          ${escapeHtml(user.name)}
-        </td>
+            <button onclick="resetUserPassword('${escapeAttr(user.id)}')">
+              Reset Password
+            </button>
 
-        <td>
-          ${escapeHtml(user.role)}
-        </td>
+            <button class="danger" onclick="deleteUser('${escapeAttr(user.id)}')">
+              Delete
+            </button>
 
-        <td>
-          ${
-            user.active
-              ? "✅"
-              : "❌"
-          }
-        </td>
+          </td>
+        </tr>`;
 
-        <td>
-
-          <button
-            onclick="changeUserStatus(
-              '${escapeAttr(user.id)}',
-              ${!user.active}
-            )">
-            ${
-              user.active
-                ? "Deactivate"
-                : "Activate"
-            }
-          </button>
-
-
-          <button
-            onclick="resetUserPassword(
-              '${escapeAttr(user.id)}'
-            )">
-            Reset Password
-          </button>
-
-
-          <button
-            class="danger"
-            onclick="deleteUser(
-              '${escapeAttr(user.id)}'
-            )">
-            Delete
-          </button>
-
-        </td>
-
-      </tr>
-    `;
-
-  });
+    }
+  );
 
 
   html +=
     "</tbody></table>";
 
 
-  el.innerHTML = html;
+  el.innerHTML =
+    html;
 
 }
 
 
-/* =========================================
+/* ==========================
    ADD USER
-========================================= */
+========================== */
 
 async function addUser() {
 
-  if (
-    !currentUser ||
-    currentUser.role !== "admin"
-  ) {
-
-    alert("Admin access required.");
-
-    return;
-
-  }
-
-
-  const adminPassword =
+  const password =
     prompt(
-      T[lang].adminPassword
+      "বর্তমান Admin Password"
     );
 
 
-  if (adminPassword === null)
+  if (password === null)
     return;
 
 
   const id =
-    prompt("User ID");
+    prompt(
+      "নতুন User ID"
+    );
 
 
   if (!id) return;
 
 
   const name =
-    prompt("Name");
+    prompt(
+      "User Name"
+    );
 
 
   if (name === null)
     return;
 
 
-  const password =
-    prompt("Password");
+  const userPassword =
+    prompt(
+      "নতুন User Password"
+    );
 
 
-  if (!password) return;
+  if (!userPassword)
+    return;
 
 
   const role =
@@ -1078,24 +858,34 @@ async function addUser() {
     await api(
       "addUser",
       {
+
         adminId:
           currentUser.id,
 
-        adminPassword,
+        adminPassword:
+          password,
 
         user: {
+
           id,
+
           name,
-          password,
+
+          password:
+            userPassword,
+
           role:
-            role || "user",
-          active: true
+            role || "user"
+
         }
+
       }
     );
 
 
-  alert(result.message);
+  alert(
+    result.message
+  );
 
 
   if (result.success)
@@ -1104,9 +894,9 @@ async function addUser() {
 }
 
 
-/* =========================================
+/* ==========================
    USER STATUS
-========================================= */
+========================== */
 
 async function changeUserStatus(
   userId,
@@ -1115,7 +905,7 @@ async function changeUserStatus(
 
   const password =
     prompt(
-      T[lang].adminPassword
+      "Admin Password"
     );
 
 
@@ -1127,6 +917,7 @@ async function changeUserStatus(
     await api(
       "setUserStatus",
       {
+
         adminId:
           currentUser.id,
 
@@ -1136,11 +927,14 @@ async function changeUserStatus(
         userId,
 
         active
+
       }
     );
 
 
-  alert(result.message);
+  alert(
+    result.message
+  );
 
 
   if (result.success)
@@ -1149,29 +943,27 @@ async function changeUserStatus(
 }
 
 
-/* =========================================
-   RESET PASSWORD
-========================================= */
+/* ==========================
+   RESET USER PASSWORD
+========================== */
 
 async function resetUserPassword(
   userId
 ) {
 
-  const adminPassword =
+  const password =
     prompt(
-      T[lang].adminPassword
+      "Admin Password"
     );
 
 
-  if (adminPassword === null)
+  if (password === null)
     return;
 
 
   const newPassword =
     prompt(
-      lang === "bn"
-        ? "নতুন Password দিন"
-        : "Enter new password"
+      "নতুন Password"
     );
 
 
@@ -1183,26 +975,31 @@ async function resetUserPassword(
     await api(
       "resetUserPassword",
       {
+
         adminId:
           currentUser.id,
 
-        adminPassword,
+        adminPassword:
+          password,
 
         userId,
 
         newPassword
+
       }
     );
 
 
-  alert(result.message);
+  alert(
+    result.message
+  );
 
 }
 
 
-/* =========================================
+/* ==========================
    DELETE USER
-========================================= */
+========================== */
 
 async function deleteUser(
   userId
@@ -1210,16 +1007,15 @@ async function deleteUser(
 
   if (
     !confirm(
-      lang === "bn"
-        ? "এই User মুছে ফেলবেন?"
-        : "Delete this user?"
+      "এই User-কে Delete করবেন?"
     )
-  ) return;
+  )
+    return;
 
 
   const password =
     prompt(
-      T[lang].adminPassword
+      "Admin Password"
     );
 
 
@@ -1231,6 +1027,7 @@ async function deleteUser(
     await api(
       "deleteUser",
       {
+
         adminId:
           currentUser.id,
 
@@ -1238,11 +1035,14 @@ async function deleteUser(
           password,
 
         userId
+
       }
     );
 
 
-  alert(result.message);
+  alert(
+    result.message
+  );
 
 
   if (result.success)
@@ -1251,11 +1051,11 @@ async function deleteUser(
 }
 
 
-/* =========================================
-   AUDIT LOG
-========================================= */
+/* ==========================
+   AUDIT
+========================== */
 
-function renderAuditLog() {
+function renderAudit() {
 
   const el =
     document.getElementById(
@@ -1279,36 +1079,19 @@ function renderAuditLog() {
   }
 
 
-  if (!data.auditLog.length) {
-
-    el.innerHTML =
-      "<p>No audit records.</p>";
-
-    return;
-
-  }
-
-
-  let html = `
-    <table>
-
+  let html =
+    `<table>
       <thead>
-
         <tr>
-
           <th>Date</th>
           <th>User</th>
           <th>Action</th>
           <th>Entity</th>
           <th>Record ID</th>
           <th>Details</th>
-
         </tr>
-
       </thead>
-
-      <tbody>
-  `;
+      <tbody>`;
 
 
   data.auditLog
@@ -1316,47 +1099,15 @@ function renderAuditLog() {
     .reverse()
     .forEach(function(log) {
 
-      html += `
-        <tr>
-
-          <td>
-            ${escapeHtml(
-              log.createdAt ?? ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              log.userId ?? ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              log.action ?? ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              log.entity ?? ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              log.entityId ?? ""
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              log.details ?? ""
-            )}
-          </td>
-
-        </tr>
-      `;
+      html +=
+        `<tr>
+          <td>${escapeHtml(log.createdAt ?? "")}</td>
+          <td>${escapeHtml(log.userId ?? "")}</td>
+          <td>${escapeHtml(log.action ?? "")}</td>
+          <td>${escapeHtml(log.entity ?? "")}</td>
+          <td>${escapeHtml(log.entityId ?? "")}</td>
+          <td>${escapeHtml(log.details ?? "")}</td>
+        </tr>`;
 
     });
 
@@ -1365,111 +1116,100 @@ function renderAuditLog() {
     "</tbody></table>";
 
 
-  el.innerHTML = html;
+  el.innerHTML =
+    html;
 
 }
 
 
-/* =========================================
+/* ==========================
    SETTINGS
-========================================= */
+========================== */
 
 async function saveSettings() {
 
-  if (
-    !currentUser ||
-    currentUser.role !== "admin"
-  ) {
+  const password =
+    prompt(
+      "Admin Password"
+    );
 
-    alert("Admin access required.");
 
+  if (password === null)
     return;
-
-  }
 
 
   const systemName =
     document.getElementById(
       "systemName"
-    );
+    ).value;
 
 
-  const systemLanguage =
+  const language =
     document.getElementById(
       "systemLanguage"
-    );
-
-
-  const adminPassword =
-    prompt(
-      T[lang].adminPassword
-    );
-
-
-  if (adminPassword === null)
-    return;
+    ).value;
 
 
   const result =
     await api(
       "saveSettings",
       {
+
         adminId:
           currentUser.id,
 
-        adminPassword,
+        adminPassword:
+          password,
 
         settings: {
 
-          systemName:
-            systemName
-              ? systemName.value
-              : "",
+          systemName,
 
-          language:
-            systemLanguage
-              ? systemLanguage.value
-              : lang
+          language
 
         }
+
       }
     );
 
 
-  alert(result.message);
+  alert(
+    result.message
+  );
+
+
+  if (result.success) {
+
+    lang =
+      language;
+
+    toggleLang();
+
+  }
 
 }
 
 
-/* =========================================
+/* ==========================
    NAVIGATION
-========================================= */
+========================== */
 
 function show(id) {
-
-  document
-    .querySelectorAll(
-      "main > section"
-    )
-    .forEach(function(section) {
-
-      section.hidden = true;
-
-    });
-
 
   const target =
     document.getElementById(id);
 
 
-  if (target)
-    target.hidden = false;
+  if (!target)
+    return;
 
 
   if (
-    id === "users" ||
-    id === "audit" ||
-    id === "settings"
+    [
+      "users",
+      "audit",
+      "settings"
+    ].includes(id)
   ) {
 
     if (
@@ -1478,12 +1218,8 @@ function show(id) {
     ) {
 
       alert(
-        lang === "bn"
-          ? "শুধু Admin এই অংশ দেখতে পারবেন।"
-          : "Only Admin can access this section."
+        "শুধুমাত্র Admin এই অংশ দেখতে পারবেন।"
       );
-
-      target.hidden = true;
 
       return;
 
@@ -1491,58 +1227,240 @@ function show(id) {
 
   }
 
+
+  document
+    .querySelectorAll(
+      "main > section"
+    )
+    .forEach(function(s) {
+
+      s.hidden = true;
+
+    });
+
+
+  target.hidden = false;
+
 }
 
 
-/* =========================================
-   PROTECTED ACTION
-========================================= */
+/* ==========================
+   ADD BUTTON
+========================== */
 
-async function protectedAction(
-  action
+function addDemo(sheetName) {
+
+  if (sheetName === "Activities") {
+
+    addSimpleRecord(
+      "Activities",
+      {
+        year:
+          prompt("Year"),
+        name:
+          prompt("Activity Name"),
+        purpose:
+          prompt("Purpose"),
+        openingBalance:
+          prompt("Opening Balance") || 0,
+        status:
+          prompt("Status", "Active")
+      }
+    );
+
+    return;
+  }
+
+
+  if (sheetName === "Collections") {
+
+    addSimpleRecord(
+      "Collections",
+      {
+        activityId:
+          prompt("Activity ID"),
+        donorId:
+          prompt("Donor ID"),
+        amount:
+          prompt("Amount"),
+        method:
+          prompt("Method"),
+        date:
+          prompt("Date"),
+        note:
+          prompt("Note")
+      }
+    );
+
+    return;
+  }
+
+
+  if (sheetName === "Expenses") {
+
+    addSimpleRecord(
+      "Expenses",
+      {
+        activityId:
+          prompt("Activity ID"),
+        date:
+          prompt("Date"),
+        recipient:
+          prompt("Recipient"),
+        category:
+          prompt("Category"),
+        amount:
+          prompt("Amount"),
+        method:
+          prompt("Method"),
+        voucherNo:
+          prompt("Voucher No"),
+        note:
+          prompt("Note")
+      }
+    );
+
+    return;
+  }
+
+
+  if (sheetName === "FundCustody") {
+
+    addSimpleRecord(
+      "FundCustody",
+      {
+        locationType:
+          prompt(
+            "Location: Self / Bank / Person"
+          ),
+
+        custodianName:
+          prompt(
+            "Custodian Name"
+          ),
+
+        amount:
+          prompt("Amount"),
+
+        date:
+          prompt("Date"),
+
+        reason:
+          prompt("Reason"),
+
+        terms:
+          prompt("Terms"),
+
+        witnesses:
+          prompt("Witnesses"),
+
+        expectedReturnDate:
+          prompt(
+            "Expected Return Date"
+          ),
+
+        status:
+          prompt(
+            "Status",
+            "Active"
+          ),
+
+        note:
+          prompt("Note")
+      }
+    );
+
+  }
+
+}
+
+
+async function addSimpleRecord(
+  sheetName,
+  obj
 ) {
 
-  const id =
-    prompt(
-      T[lang].adminId
+  const result =
+    await api(
+      "addRecord",
+      {
+
+        sheetName,
+
+        obj,
+
+        userId:
+          currentUser.id
+
+      }
     );
-
-
-  if (id === null)
-    return;
-
-
-  const password =
-    prompt(
-      T[lang].adminPassword
-    );
-
-
-  if (password === null)
-    return;
-
-
-  if (
-    !confirm(
-      "Confirm " + action + "?"
-    )
-  ) return;
 
 
   alert(
-    lang === "bn"
-      ? action +
-        " এর জন্য backend প্রস্তুত আছে।"
-      : "Backend is ready for " +
-        action
+    result.message
   );
+
+
+  if (result.success)
+    load();
 
 }
 
 
-/* =========================================
-   HTML ESCAPE
-========================================= */
+/* ==========================
+   HELPERS
+========================== */
+
+function getRows(sheetName) {
+
+  const map = {
+
+    Activities:
+      data.activities,
+
+    Donors:
+      data.donors,
+
+    Collections:
+      data.collections,
+
+    Expenses:
+      data.expenses,
+
+    FundCustody:
+      data.custody
+
+  };
+
+
+  return map[sheetName] || [];
+
+}
+
+
+function money(n) {
+
+  return "৳" +
+    Number(n || 0)
+      .toLocaleString();
+
+}
+
+
+function setText(
+  id,
+  value
+) {
+
+  const el =
+    document.getElementById(id);
+
+  if (el)
+    el.textContent =
+      value;
+
+}
+
 
 function escapeHtml(value) {
 
