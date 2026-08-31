@@ -1,62 +1,40 @@
 <!doctype html>
 <html lang="bn">
-
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta charset="utf-8">
+  <title>Murad Bari Social Welfare Fund</title>
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
-
-<title>
-  Murad Bari Fund v2
-</title>
-
-<link
-  rel="stylesheet"
-  href="style.css"
->
-
+  <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
-
 
 <!-- =========================
      LOGIN
 ========================= -->
 
-<div
-  id="loginPage"
-  class="login"
->
+<div id="loginPage" class="login">
 
   <div class="login-card">
 
-    <div class="logo">
-      🏠
-    </div>
-
+    <div class="logo">🏠</div>
 
     <h1 data-t="title">
       মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড
     </h1>
 
-
     <p data-t="subtitle">
       সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা
     </p>
 
-
     <input
       id="loginId"
+      type="text"
       placeholder="Login ID"
       autocomplete="username"
     >
-
 
     <input
       id="loginPass"
@@ -65,14 +43,9 @@
       autocomplete="current-password"
     >
 
-
-    <button
-      onclick="doLogin()"
-      data-t="login"
-    >
+    <button onclick="doLogin()" data-t="login">
       লগইন
     </button>
-
 
     <button
       class="outline"
@@ -81,7 +54,6 @@
       বাংলা / English
     </button>
 
-
     <div id="msg"></div>
 
   </div>
@@ -89,18 +61,11 @@
 </div>
 
 
-
 <!-- =========================
-     APP
+     APPLICATION
 ========================= -->
 
-<div
-  id="app"
-  hidden
->
-
-
-<!-- HEADER -->
+<div id="app" hidden>
 
 <header>
 
@@ -114,7 +79,6 @@
 
   </div>
 
-
   <div class="header-actions">
 
     <button
@@ -124,10 +88,9 @@
       বাংলা / English
     </button>
 
-
     <button
       class="small outline"
-      onclick="location.reload()"
+      onclick="logout()"
     >
       Logout
     </button>
@@ -135,7 +98,6 @@
   </div>
 
 </header>
-
 
 
 <!-- =========================
@@ -151,7 +113,6 @@
     ড্যাশবোর্ড
   </button>
 
-
   <button
     onclick="show('activities')"
     data-t="activities"
@@ -159,6 +120,12 @@
     কার্যক্রম
   </button>
 
+  <button
+    onclick="show('donors')"
+    data-t="donorsMenu"
+  >
+    দাতা
+  </button>
 
   <button
     onclick="show('collections')"
@@ -167,14 +134,12 @@
     দাতা ও সংগ্রহ
   </button>
 
-
   <button
     onclick="show('expenses')"
     data-t="expenses"
   >
     খরচ ও সহায়তা
   </button>
-
 
   <button
     onclick="show('custody')"
@@ -183,7 +148,6 @@
     ফান্ড কোথায়
   </button>
 
-
   <button
     onclick="show('reports')"
     data-t="reports"
@@ -191,51 +155,43 @@
     রিপোর্ট
   </button>
 
-
   <button
     onclick="show('security')"
     data-t="security"
   >
     নিরাপত্তা
   </button>
-  
-<button onclick="show('users')" data-t="users">
-  👥 ব্যবহারকারী
-</button>
 
-<button onclick="show('audit')" data-t="audit">
-  📋 অডিট লগ
-</button>
-
-<button onclick="show('settings')" data-t="settings">
-  ⚙️ সেটিংস
-</button>
+  <!-- ADMIN -->
 
   <button
+    id="usersNav"
     onclick="show('users')"
     data-t="users"
+    hidden
   >
-    👥 ব্যবহারকারী
+    👥 Users
   </button>
 
-
   <button
+    id="auditNav"
     onclick="show('audit')"
     data-t="audit"
+    hidden
   >
-    📋 অডিট লগ
+    📋 Audit Log
   </button>
 
-
   <button
+    id="settingsNav"
     onclick="show('settings')"
     data-t="settings"
+    hidden
   >
-    ⚙️ সেটিংস
+    ⚙️ Settings
   </button>
 
 </nav>
-
 
 
 <main>
@@ -251,66 +207,46 @@
     ড্যাশবোর্ড
   </h2>
 
-
   <div class="stats">
 
     <div class="stat">
-
       💰
-
       <span data-t="totalCollection">
         মোট সংগ্রহ
       </span>
-
       <b id="totalCollection">
         ৳0
       </b>
-
     </div>
 
-
     <div class="stat">
-
       💸
-
       <span data-t="totalExpense">
         মোট খরচ
       </span>
-
       <b id="totalExpense">
         ৳0
       </b>
-
     </div>
 
-
     <div class="stat">
-
       💵
-
       <span data-t="currentFund">
         বর্তমান ফান্ড
       </span>
-
       <b id="balance">
         ৳0
       </b>
-
     </div>
 
-
     <div class="stat">
-
       👥
-
       <span data-t="donors">
         দাতা
       </span>
-
       <b id="donorCount">
         0
       </b>
-
     </div>
 
   </div>
@@ -329,15 +265,11 @@
 </section>
 
 
-
 <!-- =========================
      ACTIVITIES
 ========================= -->
 
-<section
-  id="activities"
-  hidden
->
+<section id="activities" hidden>
 
   <div class="panel">
 
@@ -345,14 +277,9 @@
       কার্যক্রম
     </h2>
 
-
-    <button
-      onclick="addDemo('Activities')"
-      data-t="add"
-    >
-      + যোগ করুন
+    <button onclick="addDemo('Activities')">
+      ➕ <span data-t="add">যোগ করুন</span>
     </button>
-
 
     <div id="activitiesTable"></div>
 
@@ -361,15 +288,34 @@
 </section>
 
 
+<!-- =========================
+     DONORS
+========================= -->
+
+<section id="donors" hidden>
+
+  <div class="panel">
+
+    <h2 data-t="donorsMenu">
+      👥 দাতা
+    </h2>
+
+    <button onclick="addDemo('Donors')">
+      ➕ <span data-t="add">যোগ করুন</span>
+    </button>
+
+    <div id="donorsTable"></div>
+
+  </div>
+
+</section>
+
 
 <!-- =========================
      COLLECTIONS
 ========================= -->
 
-<section
-  id="collections"
-  hidden
->
+<section id="collections" hidden>
 
   <div class="panel">
 
@@ -377,14 +323,9 @@
       দাতা ও সংগ্রহ
     </h2>
 
-
-    <button
-      onclick="addDemo('Collections')"
-      data-t="add"
-    >
-      + যোগ করুন
+    <button onclick="addDemo('Collections')">
+      ➕ <span data-t="add">যোগ করুন</span>
     </button>
-
 
     <div id="collectionsTable"></div>
 
@@ -393,15 +334,11 @@
 </section>
 
 
-
 <!-- =========================
      EXPENSES
 ========================= -->
 
-<section
-  id="expenses"
-  hidden
->
+<section id="expenses" hidden>
 
   <div class="panel">
 
@@ -409,14 +346,9 @@
       খরচ ও সহায়তা
     </h2>
 
-
-    <button
-      onclick="addDemo('Expenses')"
-      data-t="add"
-    >
-      + যোগ করুন
+    <button onclick="addDemo('Expenses')">
+      ➕ <span data-t="add">যোগ করুন</span>
     </button>
-
 
     <div id="expensesTable"></div>
 
@@ -425,30 +357,25 @@
 </section>
 
 
-
 <!-- =========================
      FUND CUSTODY
 ========================= -->
 
-<section
-  id="custody"
-  hidden
->
+<section id="custody" hidden>
 
   <div class="panel">
 
     <h2 data-t="custody">
-      ফান্ড কোথায় আছে
+      💰 ফান্ড কোথায় আছে
     </h2>
 
+    <p>
+      বর্তমানে ফান্ড নিজের কাছে, ব্যাংকে অথবা অন্য কোনো ব্যক্তির কাছে থাকলে তার বিস্তারিত এখানে সংরক্ষণ করা যাবে।
+    </p>
 
-    <button
-      onclick="addDemo('FundCustody')"
-      data-t="add"
-    >
-      + যোগ করুন
+    <button onclick="addDemo('FundCustody')">
+      ➕ <span data-t="add">যোগ করুন</span>
     </button>
-
 
     <div id="custodyTable"></div>
 
@@ -457,15 +384,11 @@
 </section>
 
 
-
 <!-- =========================
      REPORTS
 ========================= -->
 
-<section
-  id="reports"
-  hidden
->
+<section id="reports" hidden>
 
   <div class="panel">
 
@@ -473,15 +396,11 @@
       রিপোর্ট
     </h2>
 
-
     <p>
-      PDF / Print Report
+      এখান থেকে বর্তমান হিসাব Print করা যাবে।
     </p>
 
-
-    <button
-      onclick="window.print()"
-    >
+    <button onclick="window.print()">
       🖨️ Print
     </button>
 
@@ -490,217 +409,110 @@
 </section>
 
 
-
 <!-- =========================
      SECURITY
 ========================= -->
 
-<section
-  id="security"
-  hidden
->
+<section id="security" hidden>
 
   <div class="panel">
 
     <h2 data-t="security">
-      নিরাপত্তা
+      🔐 নিরাপত্তা
     </h2>
 
-
     <p>
-      Restore এবং Reset-এর জন্য
-      Admin authentication প্রয়োজন।
+      গুরুত্বপূর্ণ Delete, User Management এবং Settings পরিবর্তনের জন্য Admin authentication প্রয়োজন।
     </p>
 
-
-    <button
-      onclick="protectedAction('RESTORE')"
-    >
-      ♻️ Restore
-    </button>
-
-
-    <button
-      class="danger"
-      onclick="protectedAction('RESET')"
-    >
-      🔄 Reset
-    </button>
+    <p>
+      <strong>
+        শুধুমাত্র Admin Users, Audit Log এবং Settings দেখতে পারবেন।
+      </strong>
+    </p>
 
   </div>
 
 </section>
-
 
 
 <!-- =========================
      USERS
 ========================= -->
 
-<section
-  id="users"
-  hidden
->
+<section id="users" hidden>
 
   <div class="panel">
 
     <h2 data-t="users">
-      👥 ব্যবহারকারী
+      👥 Users
     </h2>
-
 
     <p>
-      Admin এবং User account পরিচালনা
+      এখানে সিস্টেমের ব্যবহারকারী পরিচালনা করা যাবে।
     </p>
-
-
-    <button
-      onclick="addUser()"
-    >
-      ➕ Add User
-    </button>
-
-
-    <div id="usersTable"></div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =========================
-     AUDIT LOG
-========================= -->
-
-<section
-  id="audit"
-  hidden
->
-
-  <div class="panel">
-
-    <h2 data-t="audit">
-      📋 অডিট লগ
-    </h2>
-
-
-    <p>
-      কে কখন কোন কাজ করেছে তার পূর্ণ হিসাব।
-    </p>
-
-
-    <div id="auditTable"></div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =========================
-     SETTINGS
-========================= -->
-
-<section
-  id="settings"
-  hidden
->
-
-  <div class="panel">
-
-    <h2 data-t="settings">
-      ⚙️ সেটিংস
-    </h2>
-
-
-    <label data-t="systemName">
-      সিস্টেমের নাম
-    </label>
-
-
-    <input
-      id="systemName"
-      value="মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড"
-    >
-
-
-    <label data-t="language">
-      ভাষা
-    </label>
-
-
-    <select id="systemLanguage">
-
-      <option value="bn">
-        বাংলা
-      </option>
-
-      <option value="en">
-        English
-      </option>
-
-    </select>
-
-
-    <br><br>
-
-
-    <button
-      onclick="saveSettings()"
-    >
-
-      💾
-
-      <span data-t="save">
-        সংরক্ষণ
-      </span>
-
-    </button>
-
-  </div>
-
-</section>
-
-<section id="users" hidden>
-  <div class="panel">
-    <h2 data-t="users">👥 ব্যবহারকারী</h2>
 
     <button onclick="addUser()">
       ➕ Add User
     </button>
 
     <div id="usersTable"></div>
+
   </div>
+
 </section>
 
+
+<!-- =========================
+     AUDIT LOG
+========================= -->
 
 <section id="audit" hidden>
+
   <div class="panel">
-    <h2 data-t="audit">📋 অডিট লগ</h2>
+
+    <h2 data-t="audit">
+      📋 Audit Log
+    </h2>
+
+    <p>
+      কে কখন কী পরিবর্তন করেছে তার রেকর্ড।
+    </p>
 
     <div id="auditTable"></div>
+
   </div>
+
 </section>
 
 
+<!-- =========================
+     SETTINGS
+========================= -->
+
 <section id="settings" hidden>
+
   <div class="panel">
 
     <h2 data-t="settings">
-      ⚙️ সেটিংস
+      ⚙️ Settings
     </h2>
 
-    <label>System Name</label>
+    <label>
+      System Name
+    </label>
 
     <input
       id="systemName"
+      type="text"
       value="মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড"
     >
 
     <br><br>
 
-    <label>Language</label>
+    <label>
+      Language
+    </label>
 
     <select id="systemLanguage">
 
@@ -717,21 +529,20 @@
     <br><br>
 
     <button onclick="saveSettings()">
-      💾 Save Settings
+      💾 <span data-t="save">Save</span>
     </button>
 
   </div>
+
 </section>
+
+
 </main>
 
 </div>
 
 
-<script
-  src="app.js"
-></script>
-
+<script src="app.js"></script>
 
 </body>
-
 </html>
