@@ -1,10 +1,18 @@
+/* =====================================================
+   MURAD BARI SOCIAL WELFARE FUND
+   FRONTEND v2 FINAL
+===================================================== */
+
 const API_URL =
-"https://script.google.com/macros/s/AKfycbwym4UGgPQqmffw634faS0NplbfKLlsizzFI6cvO2l0nErvB1RPlHncmmeBXaTrOP6oCA/exec";
+"https://script.google.com/macros/s/AKfycbwym4UGgPQqmffw634faS0NplbfKLlsizzFI6cvO2l0nErvB1rErvB1RPlHncmmeBXaTrOP6oCA/exec";
+
 
 let lang = "bn";
+
 let currentUser = null;
 
 let data = {
+
   activities: [],
   donors: [],
   collections: [],
@@ -14,81 +22,180 @@ let data = {
   users: [],
   auditLog: [],
   settings: []
+
 };
 
 
-/* ==========================
+/* =====================================================
    TRANSLATION
-========================== */
+===================================================== */
 
 const T = {
 
   bn: {
-    title: "মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড",
-    subtitle: "সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা",
-    login: "লগইন",
-    dashboard: "ড্যাশবোর্ড",
-    activities: "কার্যক্রম",
-    collections: "দাতা ও সংগ্রহ",
-    expenses: "খরচ ও সহায়তা",
-    custody: "ফান্ড কোথায়",
-    reports: "রিপোর্ট",
-    security: "নিরাপত্তা",
-    users: "ব্যবহারকারী",
-    audit: "অডিট লগ",
-    settings: "সেটিংস",
-    totalCollection: "মোট সংগ্রহ",
-    totalExpense: "মোট খরচ",
-    currentFund: "বর্তমান ফান্ড",
-    donors: "দাতা",
-    yearSummary: "বছরভিত্তিক কার্যক্রম",
-    add: "+ যোগ করুন",
-    edit: "এডিট",
-    delete: "ডিলিট",
-    save: "সংরক্ষণ"
+
+    title:
+      "মুরাদবাড়ি সামাজিক কল্যাণ ফান্ড",
+
+    subtitle:
+      "সামাজিক কল্যাণ ও আর্থিক সহায়তা ব্যবস্থাপনা",
+
+    login:
+      "লগইন",
+
+    dashboard:
+      "ড্যাশবোর্ড",
+
+    activities:
+      "কার্যক্রম",
+
+    donorsMenu:
+      "দাতা",
+
+    collections:
+      "দাতা ও সংগ্রহ",
+
+    expenses:
+      "খরচ ও সহায়তা",
+
+    custody:
+      "ফান্ড কোথায়",
+
+    reports:
+      "রিপোর্ট",
+
+    security:
+      "নিরাপত্তা",
+
+    users:
+      "ব্যবহারকারী",
+
+    audit:
+      "অডিট লগ",
+
+    settings:
+      "সেটিংস",
+
+    totalCollection:
+      "মোট সংগ্রহ",
+
+    totalExpense:
+      "মোট খরচ",
+
+    currentFund:
+      "বর্তমান ফান্ড",
+
+    donors:
+      "দাতা",
+
+    yearSummary:
+      "বছরভিত্তিক কার্যক্রম",
+
+    add:
+      "যোগ করুন",
+
+    edit:
+      "এডিট",
+
+    delete:
+      "ডিলিট",
+
+    save:
+      "সংরক্ষণ"
+
   },
 
+
   en: {
-    title: "Murad Bari Social Welfare Fund",
-    subtitle: "Social Welfare & Fund Management System",
-    login: "Login",
-    dashboard: "Dashboard",
-    activities: "Activities",
-    collections: "Donors & Collection",
-    expenses: "Expenses & Assistance",
-    custody: "Fund Custody",
-    reports: "Reports",
-    security: "Security",
-    users: "Users",
-    audit: "Audit Log",
-    settings: "Settings",
-    totalCollection: "Total Collection",
-    totalExpense: "Total Expense",
-    currentFund: "Current Fund",
-    donors: "Donors",
-    yearSummary: "Year-wise Activities",
-    add: "+ Add",
-    edit: "Edit",
-    delete: "Delete",
-    save: "Save"
+
+    title:
+      "Murad Bari Social Welfare Fund",
+
+    subtitle:
+      "Social Welfare & Fund Management System",
+
+    login:
+      "Login",
+
+    dashboard:
+      "Dashboard",
+
+    activities:
+      "Activities",
+
+    donorsMenu:
+      "Donors",
+
+    collections:
+      "Donors & Collection",
+
+    expenses:
+      "Expenses & Assistance",
+
+    custody:
+      "Fund Custody",
+
+    reports:
+      "Reports",
+
+    security:
+      "Security",
+
+    users:
+      "Users",
+
+    audit:
+      "Audit Log",
+
+    settings:
+      "Settings",
+
+    totalCollection:
+      "Total Collection",
+
+    totalExpense:
+      "Total Expense",
+
+    currentFund:
+      "Current Fund",
+
+    donors:
+      "Donors",
+
+    yearSummary:
+      "Year-wise Activities",
+
+    add:
+      "Add",
+
+    edit:
+      "Edit",
+
+    delete:
+      "Delete",
+
+    save:
+      "Save"
+
   }
+
 };
 
 
-/* ==========================
+/* =====================================================
    JSONP API
-========================== */
+===================================================== */
 
 function api(action, payload = {}) {
 
   return new Promise(function(resolve) {
 
     const callbackName =
-      "apiCallback_" +
+      "muradBariCallback_" +
       Date.now() +
       "_" +
       Math.floor(
-        Math.random() * 100000
+        Math.random() * 99999
       );
 
 
@@ -96,20 +203,54 @@ function api(action, payload = {}) {
       document.createElement("script");
 
 
+    let finished = false;
+
+
+    function cleanup() {
+
+      if (finished)
+        return;
+
+      finished = true;
+
+
+      try {
+
+        delete window[
+          callbackName
+        ];
+
+      } catch (e) {}
+
+
+      if (
+        script &&
+        script.parentNode
+      ) {
+
+        script.parentNode
+          .removeChild(script);
+
+      }
+
+    }
+
+
     window[callbackName] =
       function(result) {
 
-        try {
-          resolve(result);
-        } finally {
+        cleanup();
 
-          delete window[callbackName];
+        resolve(
+          result || {
 
-          if (script.parentNode) {
-            script.parentNode.removeChild(script);
+            success: false,
+
+            message:
+              "Empty API response"
+
           }
-
-        }
+        );
 
       };
 
@@ -138,8 +279,8 @@ function api(action, payload = {}) {
 
 
         if (
-          typeof value ===
-          "object"
+          value !== null &&
+          typeof value === "object"
         ) {
 
           value =
@@ -150,7 +291,9 @@ function api(action, payload = {}) {
 
         params.set(
           key,
-          value
+          String(
+            value ?? ""
+          )
         );
 
       });
@@ -165,11 +308,7 @@ function api(action, payload = {}) {
     script.onerror =
       function() {
 
-        delete window[callbackName];
-
-        if (script.parentNode) {
-          script.parentNode.removeChild(script);
-        }
+        cleanup();
 
 
         resolve({
@@ -177,7 +316,7 @@ function api(action, payload = {}) {
           success: false,
 
           message:
-            "Google Apps Script connection failed."
+            "API connection failed. Google Apps Script deployment/check করুন।"
 
         });
 
@@ -188,60 +327,37 @@ function api(action, payload = {}) {
       script
     );
 
-  });
-}
 
+    setTimeout(
+      function() {
 
-/* ==========================
-   LANGUAGE
-========================== */
+        if (!finished) {
 
-function toggleLang() {
+          cleanup();
 
-  lang =
-    lang === "bn"
-      ? "en"
-      : "bn";
+          resolve({
 
+            success: false,
 
-  document
-    .querySelectorAll(
-      "[data-t]"
-    )
-    .forEach(function(el) {
+            message:
+              "API response timeout."
 
-      const key =
-        el.dataset.t;
+          });
 
-      if (T[lang][key]) {
+        }
 
-        el.textContent =
-          T[lang][key];
-
-      }
-
-    });
-
-
-  const brand =
-    document.getElementById(
-      "brand"
+      },
+      30000
     );
 
-
-  if (brand) {
-
-    brand.textContent =
-      T[lang].title;
-
-  }
+  });
 
 }
 
 
-/* ==========================
+/* =====================================================
    LOGIN
-========================== */
+===================================================== */
 
 async function doLogin() {
 
@@ -262,18 +378,24 @@ async function doLogin() {
       .value;
 
 
+  const msg =
+    document.getElementById(
+      "msg"
+    );
+
+
   if (!id || !password) {
 
-    document
-      .getElementById(
-        "msg"
-      )
-      .textContent =
-        "ID এবং Password দিন";
+    msg.textContent =
+      "Login ID এবং Password দিন।";
 
     return;
 
   }
+
+
+  msg.textContent =
+    "Login হচ্ছে...";
 
 
   const result =
@@ -288,12 +410,9 @@ async function doLogin() {
 
   if (!result.success) {
 
-    document
-      .getElementById(
-        "msg"
-      )
-      .textContent =
-        result.message;
+    msg.textContent =
+      result.message ||
+      "Login failed";
 
     return;
 
@@ -329,14 +448,29 @@ async function doLogin() {
       ")";
 
 
-  load();
+  setupAdminMenu();
+
+  await load();
 
 }
 
 
-/* ==========================
-   LOAD
-========================== */
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+  currentUser = null;
+
+  location.reload();
+
+}
+
+
+/* =====================================================
+   LOAD DATA
+===================================================== */
 
 async function load() {
 
@@ -348,15 +482,46 @@ async function load() {
 
   if (!result.success) {
 
-    alert(result.message);
+    alert(
+      result.message ||
+      "Data loading failed"
+    );
 
     return;
 
   }
 
 
-  data =
-    result;
+  data = {
+
+    activities:
+      result.activities || [],
+
+    donors:
+      result.donors || [],
+
+    collections:
+      result.collections || [],
+
+    expenses:
+      result.expenses || [],
+
+    custody:
+      result.custody || [],
+
+    transfers:
+      result.transfers || [],
+
+    users:
+      result.users || [],
+
+    auditLog:
+      result.auditLog || [],
+
+    settings:
+      result.settings || []
+
+  };
 
 
   render();
@@ -364,53 +529,57 @@ async function load() {
 }
 
 
-/* ==========================
+/* =====================================================
    RENDER
-========================== */
+===================================================== */
 
 function render() {
 
-  const collection =
-    data.collections
-      .reduce(
-        (s, x) =>
-          s +
+  const collectionTotal =
+    data.collections.reduce(
+      function(sum, item) {
+
+        return sum +
           Number(
-            x.amount || 0
-          ),
-        0
-      );
+            item.amount || 0
+          );
+
+      },
+      0
+    );
 
 
-  const expense =
-    data.expenses
-      .reduce(
-        (s, x) =>
-          s +
+  const expenseTotal =
+    data.expenses.reduce(
+      function(sum, item) {
+
+        return sum +
           Number(
-            x.amount || 0
-          ),
-        0
-      );
+            item.amount || 0
+          );
+
+      },
+      0
+    );
 
 
   setText(
     "totalCollection",
-    money(collection)
+    money(collectionTotal)
   );
 
 
   setText(
     "totalExpense",
-    money(expense)
+    money(expenseTotal)
   );
 
 
   setText(
     "balance",
     money(
-      collection -
-      expense
+      collectionTotal -
+      expenseTotal
     )
   );
 
@@ -424,19 +593,39 @@ function render() {
   renderTable(
     "activitiesTable",
     data.activities,
+
     [
       "year",
       "name",
       "purpose",
+      "openingBalance",
       "status"
     ],
+
     "Activities"
+  );
+
+
+  renderTable(
+    "donorsTable",
+    data.donors,
+
+    [
+      "name",
+      "country",
+      "area",
+      "phone",
+      "note"
+    ],
+
+    "Donors"
   );
 
 
   renderTable(
     "collectionsTable",
     data.collections,
+
     [
       "date",
       "donorId",
@@ -444,6 +633,7 @@ function render() {
       "method",
       "note"
     ],
+
     "Collections"
   );
 
@@ -451,14 +641,17 @@ function render() {
   renderTable(
     "expensesTable",
     data.expenses,
+
     [
       "date",
       "recipient",
       "category",
       "amount",
       "method",
-      "voucherNo"
+      "voucherNo",
+      "note"
     ],
+
     "Expenses"
   );
 
@@ -466,6 +659,7 @@ function render() {
   renderTable(
     "custodyTable",
     data.custody,
+
     [
       "locationType",
       "custodianName",
@@ -474,22 +668,29 @@ function render() {
       "reason",
       "terms",
       "witnesses",
-      "status"
+      "expectedReturnDate",
+      "status",
+      "note"
     ],
+
     "FundCustody"
   );
 
+
+  renderYearSummary();
 
   renderUsers();
 
   renderAudit();
 
+  loadSettingsToForm();
+
 }
 
 
-/* ==========================
+/* =====================================================
    TABLE
-========================== */
+===================================================== */
 
 function renderTable(
   elementId,
@@ -498,19 +699,20 @@ function renderTable(
   sheetName
 ) {
 
-  const el =
+  const element =
     document.getElementById(
       elementId
     );
 
 
-  if (!el) return;
+  if (!element)
+    return;
 
 
   if (!rows.length) {
 
-    el.innerHTML =
-      "<p>কোনো তথ্য নেই।</p>";
+    element.innerHTML =
+      "<p>কোনো তথ্য পাওয়া যায়নি।</p>";
 
     return;
 
@@ -518,61 +720,198 @@ function renderTable(
 
 
   let html =
-    "<table><thead><tr>";
+    "<div class='table-wrap'>" +
+    "<table>" +
+    "<thead>" +
+    "<tr>";
 
 
-  columns.forEach(function(col) {
+  columns.forEach(
+    function(column) {
 
-    html +=
-      "<th>" +
-      escapeHtml(col) +
-      "</th>";
+      html +=
+        "<th>" +
+        escapeHtml(
+          column
+        ) +
+        "</th>";
 
-  });
+    }
+  );
 
 
   html +=
     "<th>Action</th>";
 
   html +=
-    "</tr></thead><tbody>";
+    "</tr>" +
+    "</thead>" +
+    "<tbody>";
 
 
-  rows.forEach(function(row) {
-
-    html += "<tr>";
-
-
-    columns.forEach(function(col) {
+  rows.forEach(
+    function(row) {
 
       html +=
-        "<td>" +
-        escapeHtml(
-          row[col] ?? ""
-        ) +
+        "<tr>";
+
+
+      columns.forEach(
+        function(column) {
+
+          let value =
+            row[column];
+
+
+          if (
+            column === "amount" ||
+            column === "openingBalance"
+          ) {
+
+            value =
+              money(value);
+
+          }
+
+
+          html +=
+            "<td>" +
+            escapeHtml(
+              value ?? ""
+            ) +
+            "</td>";
+
+        }
+      );
+
+
+      const id =
+        row.id;
+
+
+      html +=
+        "<td class='actions'>" +
+
+        "<button " +
+        "onclick=\"editRecord('" +
+        escapeJs(sheetName) +
+        "','" +
+        escapeJs(id) +
+        "')\">" +
+
+        "✏️ " +
+        T[lang].edit +
+
+        "</button>" +
+
+        " " +
+
+        "<button " +
+        "class='danger' " +
+        "onclick=\"deleteRecord('" +
+        escapeJs(sheetName) +
+        "','" +
+        escapeJs(id) +
+        "')\">" +
+
+        "🗑️ " +
+        T[lang].delete +
+
+        "</button>" +
+
         "</td>";
 
-    });
 
+      html +=
+        "</tr>";
 
-    html +=
-      "<td>" +
-
-      `<button onclick="editRecord('${sheetName}','${escapeAttr(row.id)}')">✏️ ${T[lang].edit}</button>` +
-
-      ` <button class="danger" onclick="deleteRecord('${sheetName}','${escapeAttr(row.id)}')">🗑️ ${T[lang].delete}</button>` +
-
-      "</td>";
-
-
-    html +=
-      "</tr>";
-
-  });
+    }
+  );
 
 
   html +=
-    "</tbody></table>";
+    "</tbody>" +
+    "</table>" +
+    "</div>";
+
+
+  element.innerHTML =
+    html;
+
+}
+
+
+/* =====================================================
+   YEAR SUMMARY
+===================================================== */
+
+function renderYearSummary() {
+
+  const el =
+    document.getElementById(
+      "yearSummary"
+    );
+
+
+  if (!el)
+    return;
+
+
+  const summary = {};
+
+
+  data.activities.forEach(
+    function(item) {
+
+      const year =
+        item.year || "Unknown";
+
+
+      summary[year] =
+        (summary[year] || 0) +
+        1;
+
+    }
+  );
+
+
+  const years =
+    Object.keys(summary)
+      .sort()
+      .reverse();
+
+
+  if (!years.length) {
+
+    el.innerHTML =
+      "<p>কোনো কার্যক্রম নেই।</p>";
+
+    return;
+
+  }
+
+
+  let html =
+    "<ul>";
+
+
+  years.forEach(
+    function(year) {
+
+      html +=
+        "<li>" +
+        escapeHtml(year) +
+        " : " +
+        summary[year] +
+        " টি কার্যক্রম" +
+        "</li>";
+
+    }
+  );
+
+
+  html +=
+    "</ul>";
 
 
   el.innerHTML =
@@ -581,9 +920,291 @@ function renderTable(
 }
 
 
-/* ==========================
-   EDIT
-========================== */
+/* =====================================================
+   ADD RECORD
+===================================================== */
+
+async function addDemo(
+  sheetName
+) {
+
+  let obj = null;
+
+
+  if (
+    sheetName ===
+    "Activities"
+  ) {
+
+    obj = {
+
+      year:
+        prompt(
+          "Year",
+          new Date()
+            .getFullYear()
+        ),
+
+      name:
+        prompt(
+          "Activity Name"
+        ),
+
+      purpose:
+        prompt(
+          "Purpose"
+        ),
+
+      openingBalance:
+        prompt(
+          "Opening Balance",
+          "0"
+        ),
+
+      status:
+        prompt(
+          "Status",
+          "Active"
+        )
+
+    };
+
+  }
+
+
+  else if (
+    sheetName ===
+    "Donors"
+  ) {
+
+    obj = {
+
+      name:
+        prompt(
+          "Donor Name"
+        ),
+
+      country:
+        prompt(
+          "Country"
+        ),
+
+      area:
+        prompt(
+          "Area"
+        ),
+
+      phone:
+        prompt(
+          "Phone"
+        ),
+
+      note:
+        prompt(
+          "Note"
+        )
+
+    };
+
+  }
+
+
+  else if (
+    sheetName ===
+    "Collections"
+  ) {
+
+    obj = {
+
+      activityId:
+        prompt(
+          "Activity ID"
+        ),
+
+      donorId:
+        prompt(
+          "Donor ID"
+        ),
+
+      amount:
+        prompt(
+          "Amount"
+        ),
+
+      method:
+        prompt(
+          "Method"
+        ),
+
+      date:
+        prompt(
+          "Date",
+          today()
+        ),
+
+      note:
+        prompt(
+          "Note"
+        )
+
+    };
+
+  }
+
+
+  else if (
+    sheetName ===
+    "Expenses"
+  ) {
+
+    obj = {
+
+      activityId:
+        prompt(
+          "Activity ID"
+        ),
+
+      date:
+        prompt(
+          "Date",
+          today()
+        ),
+
+      recipient:
+        prompt(
+          "Recipient"
+        ),
+
+      category:
+        prompt(
+          "Category"
+        ),
+
+      amount:
+        prompt(
+          "Amount"
+        ),
+
+      method:
+        prompt(
+          "Method"
+        ),
+
+      voucherNo:
+        prompt(
+          "Voucher No"
+        ),
+
+      note:
+        prompt(
+          "Note"
+        )
+
+    };
+
+  }
+
+
+  else if (
+    sheetName ===
+    "FundCustody"
+  ) {
+
+    obj = {
+
+      locationType:
+        prompt(
+          "Location Type: Self / Bank / Person",
+          "Self"
+        ),
+
+      custodianName:
+        prompt(
+          "Custodian Name"
+        ),
+
+      amount:
+        prompt(
+          "Amount"
+        ),
+
+      date:
+        prompt(
+          "Date",
+          today()
+        ),
+
+      reason:
+        prompt(
+          "Reason"
+        ),
+
+      terms:
+        prompt(
+          "Terms"
+        ),
+
+      witnesses:
+        prompt(
+          "Witnesses"
+        ),
+
+      expectedReturnDate:
+        prompt(
+          "Expected Return Date"
+        ),
+
+      status:
+        prompt(
+          "Status",
+          "Active"
+        ),
+
+      note:
+        prompt(
+          "Note"
+        )
+
+    };
+
+  }
+
+
+  if (!obj)
+    return;
+
+
+  const result =
+    await api(
+      "addRecord",
+      {
+
+        sheetName,
+
+        obj,
+
+        userId:
+          currentUser.id
+
+      }
+    );
+
+
+  alert(
+    result.message ||
+    "Saved"
+  );
+
+
+  if (result.success)
+    await load();
+
+}
+
+
+/* =====================================================
+   EDIT RECORD
+===================================================== */
 
 async function editRecord(
   sheetName,
@@ -595,12 +1216,14 @@ async function editRecord(
 
 
   const record =
-    rows.find(function(x) {
+    rows.find(
+      function(item) {
 
-      return String(x.id) ===
-        String(id);
+        return String(item.id) ===
+          String(id);
 
-    });
+      }
+    );
 
 
   if (!record) {
@@ -617,60 +1240,77 @@ async function editRecord(
   const obj = {};
 
 
-  Object.keys(record)
-    .forEach(function(field) {
+  const editableFields =
+    Object.keys(record)
+      .filter(
+        function(field) {
 
-      if (
-        field === "id" ||
-        field === "createdAt"
-      )
-        return;
+          return (
+            field !== "id" &&
+            field !== "createdAt"
+          );
 
-
-      const value =
-        prompt(
-          field,
-          record[field] ?? ""
-        );
+        }
+      );
 
 
-      if (value === null)
-        return;
+  for (
+    const field of editableFields
+  ) {
+
+    const answer =
+      prompt(
+        "Edit: " + field,
+        record[field] ?? ""
+      );
 
 
-      obj[field] =
-        value;
+    if (answer === null) {
 
-    });
+      return;
+
+    }
+
+
+    obj[field] =
+      answer;
+
+  }
 
 
   const result =
     await api(
       "updateRecord",
       {
+
         sheetName,
+
         id,
+
         obj,
+
         userId:
           currentUser.id
+
       }
     );
 
 
   alert(
-    result.message
+    result.message ||
+    "Updated"
   );
 
 
   if (result.success)
-    load();
+    await load();
 
 }
 
 
-/* ==========================
-   DELETE
-========================== */
+/* =====================================================
+   DELETE RECORD
+===================================================== */
 
 async function deleteRecord(
   sheetName,
@@ -678,16 +1318,33 @@ async function deleteRecord(
 ) {
 
   if (
-    !confirm(
-      "আপনি কি এই রেকর্ডটি ডিলিট করতে চান?"
-    )
-  )
+    currentUser.role !==
+    "admin"
+  ) {
+
+    alert(
+      "শুধুমাত্র Admin Delete করতে পারবেন।"
+    );
+
     return;
+
+  }
+
+
+  if (
+    !confirm(
+      "আপনি কি নিশ্চিতভাবে এই record Delete করতে চান?"
+    )
+  ) {
+
+    return;
+
+  }
 
 
   const password =
     prompt(
-      "Admin Password দিন"
+      "Admin Password দিন:"
     );
 
 
@@ -699,30 +1356,72 @@ async function deleteRecord(
     await api(
       "deleteRecord",
       {
+
         sheetName,
+
         id,
+
         userId:
           currentUser.id,
+
         adminPassword:
           password
+
       }
     );
 
 
   alert(
-    result.message
+    result.message ||
+    "Delete completed"
   );
 
 
   if (result.success)
-    load();
+    await load();
 
 }
 
 
-/* ==========================
+/* =====================================================
    USERS
-========================== */
+===================================================== */
+
+function setupAdminMenu() {
+
+  const isAdmin =
+    currentUser &&
+    String(
+      currentUser.role
+    ).toLowerCase() ===
+    "admin";
+
+
+  [
+    "usersNav",
+    "auditNav",
+    "settingsNav"
+  ]
+  .forEach(
+    function(id) {
+
+      const el =
+        document.getElementById(
+          id
+        );
+
+      if (el) {
+
+        el.hidden =
+          !isAdmin;
+
+      }
+
+    }
+  );
+
+}
+
 
 function renderUsers() {
 
@@ -732,12 +1431,14 @@ function renderUsers() {
     );
 
 
-  if (!el) return;
+  if (!el)
+    return;
 
 
   if (
     !currentUser ||
-    currentUser.role !== "admin"
+    currentUser.role !==
+    "admin"
   ) {
 
     el.innerHTML =
@@ -748,52 +1449,119 @@ function renderUsers() {
   }
 
 
+  if (!data.users.length) {
+
+    el.innerHTML =
+      "<p>No users found.</p>";
+
+    return;
+
+  }
+
+
   let html =
-    `<table>
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Active</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>`;
+    "<div class='table-wrap'>" +
+    "<table>" +
+    "<thead>" +
+    "<tr>" +
+    "<th>User ID</th>" +
+    "<th>Name</th>" +
+    "<th>Role</th>" +
+    "<th>Status</th>" +
+    "<th>Action</th>" +
+    "</tr>" +
+    "</thead>" +
+    "<tbody>";
 
 
   data.users.forEach(
     function(user) {
 
+      const active =
+        user.active === true ||
+        String(
+          user.active
+        ).toLowerCase() ===
+        "true";
+
+
       html +=
-        `<tr>
-          <td>${escapeHtml(user.id)}</td>
-          <td>${escapeHtml(user.name)}</td>
-          <td>${escapeHtml(user.role)}</td>
-          <td>${user.active ? "✅" : "❌"}</td>
-          <td>
+        "<tr>" +
 
-            <button onclick="changeUserStatus('${escapeAttr(user.id)}',${!user.active})">
-              ${user.active ? "Deactivate" : "Activate"}
-            </button>
+        "<td>" +
+        escapeHtml(
+          user.id
+        ) +
+        "</td>" +
 
-            <button onclick="resetUserPassword('${escapeAttr(user.id)}')">
-              Reset Password
-            </button>
+        "<td>" +
+        escapeHtml(
+          user.name
+        ) +
+        "</td>" +
 
-            <button class="danger" onclick="deleteUser('${escapeAttr(user.id)}')">
-              Delete
-            </button>
+        "<td>" +
+        escapeHtml(
+          user.role
+        ) +
+        "</td>" +
 
-          </td>
-        </tr>`;
+        "<td>" +
+        (
+          active
+            ? "✅ Active"
+            : "❌ Inactive"
+        ) +
+        "</td>" +
+
+        "<td>" +
+
+        "<button onclick=\"changeUserStatus('" +
+        escapeJs(user.id) +
+        "'," +
+        (!active) +
+        ")\">" +
+
+        (
+          active
+            ? "Deactivate"
+            : "Activate"
+        ) +
+
+        "</button>" +
+
+        " " +
+
+        "<button onclick=\"resetUserPassword('" +
+        escapeJs(user.id) +
+        "')\">" +
+
+        "🔑 Reset Password" +
+
+        "</button>" +
+
+        " " +
+
+        "<button class='danger' onclick=\"deleteUser('" +
+        escapeJs(user.id) +
+        "')\">" +
+
+        "🗑️ Delete" +
+
+        "</button>" +
+
+        "</td>" +
+
+        "</tr>";
 
     }
   );
 
 
   html +=
-    "</tbody></table>";
+    "</tbody>" +
+    "</table>" +
+    "</div>";
 
 
   el.innerHTML =
@@ -802,34 +1570,49 @@ function renderUsers() {
 }
 
 
-/* ==========================
+/* =====================================================
    ADD USER
-========================== */
+===================================================== */
 
 async function addUser() {
 
-  const password =
+  if (
+    currentUser.role !==
+    "admin"
+  ) {
+
+    alert(
+      "Admin access required."
+    );
+
+    return;
+
+  }
+
+
+  const adminPassword =
     prompt(
-      "বর্তমান Admin Password"
+      "আপনার Admin Password:"
     );
 
 
-  if (password === null)
+  if (adminPassword === null)
     return;
 
 
   const id =
     prompt(
-      "নতুন User ID"
+      "নতুন User ID:"
     );
 
 
-  if (!id) return;
+  if (!id)
+    return;
 
 
   const name =
     prompt(
-      "User Name"
+      "User Name:"
     );
 
 
@@ -837,19 +1620,19 @@ async function addUser() {
     return;
 
 
-  const userPassword =
+  const password =
     prompt(
-      "নতুন User Password"
+      "নতুন User Password:"
     );
 
 
-  if (!userPassword)
+  if (!password)
     return;
 
 
   const role =
     prompt(
-      "Role: admin / user",
+      "Role: admin অথবা user",
       "user"
     );
 
@@ -862,8 +1645,7 @@ async function addUser() {
         adminId:
           currentUser.id,
 
-        adminPassword:
-          password,
+        adminPassword,
 
         user: {
 
@@ -871,8 +1653,7 @@ async function addUser() {
 
           name,
 
-          password:
-            userPassword,
+          password,
 
           role:
             role || "user"
@@ -889,14 +1670,14 @@ async function addUser() {
 
 
   if (result.success)
-    load();
+    await load();
 
 }
 
 
-/* ==========================
-   USER STATUS
-========================== */
+/* =====================================================
+   CHANGE USER STATUS
+===================================================== */
 
 async function changeUserStatus(
   userId,
@@ -905,7 +1686,7 @@ async function changeUserStatus(
 
   const password =
     prompt(
-      "Admin Password"
+      "Admin Password:"
     );
 
 
@@ -938,32 +1719,32 @@ async function changeUserStatus(
 
 
   if (result.success)
-    load();
+    await load();
 
 }
 
 
-/* ==========================
-   RESET USER PASSWORD
-========================== */
+/* =====================================================
+   RESET PASSWORD
+===================================================== */
 
 async function resetUserPassword(
   userId
 ) {
 
-  const password =
+  const adminPassword =
     prompt(
-      "Admin Password"
+      "Admin Password:"
     );
 
 
-  if (password === null)
+  if (adminPassword === null)
     return;
 
 
   const newPassword =
     prompt(
-      "নতুন Password"
+      "নতুন Password:"
     );
 
 
@@ -979,8 +1760,7 @@ async function resetUserPassword(
         adminId:
           currentUser.id,
 
-        adminPassword:
-          password,
+        adminPassword,
 
         userId,
 
@@ -997,9 +1777,9 @@ async function resetUserPassword(
 }
 
 
-/* ==========================
+/* =====================================================
    DELETE USER
-========================== */
+===================================================== */
 
 async function deleteUser(
   userId
@@ -1015,7 +1795,7 @@ async function deleteUser(
 
   const password =
     prompt(
-      "Admin Password"
+      "Admin Password:"
     );
 
 
@@ -1046,14 +1826,14 @@ async function deleteUser(
 
 
   if (result.success)
-    load();
+    await load();
 
 }
 
 
-/* ==========================
-   AUDIT
-========================== */
+/* =====================================================
+   AUDIT LOG
+===================================================== */
 
 function renderAudit() {
 
@@ -1063,12 +1843,14 @@ function renderAudit() {
     );
 
 
-  if (!el) return;
+  if (!el)
+    return;
 
 
   if (
     !currentUser ||
-    currentUser.role !== "admin"
+    currentUser.role !==
+    "admin"
   ) {
 
     el.innerHTML =
@@ -1079,41 +1861,89 @@ function renderAudit() {
   }
 
 
+  if (!data.auditLog.length) {
+
+    el.innerHTML =
+      "<p>কোনো Audit Log নেই।</p>";
+
+    return;
+
+  }
+
+
   let html =
-    `<table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>User</th>
-          <th>Action</th>
-          <th>Entity</th>
-          <th>Record ID</th>
-          <th>Details</th>
-        </tr>
-      </thead>
-      <tbody>`;
+    "<div class='table-wrap'>" +
+    "<table>" +
+    "<thead>" +
+    "<tr>" +
+
+    "<th>Date</th>" +
+    "<th>User</th>" +
+    "<th>Action</th>" +
+    "<th>Entity</th>" +
+    "<th>Record ID</th>" +
+    "<th>Details</th>" +
+
+    "</tr>" +
+    "</thead>" +
+    "<tbody>";
 
 
   data.auditLog
     .slice()
     .reverse()
-    .forEach(function(log) {
+    .forEach(
+      function(log) {
 
-      html +=
-        `<tr>
-          <td>${escapeHtml(log.createdAt ?? "")}</td>
-          <td>${escapeHtml(log.userId ?? "")}</td>
-          <td>${escapeHtml(log.action ?? "")}</td>
-          <td>${escapeHtml(log.entity ?? "")}</td>
-          <td>${escapeHtml(log.entityId ?? "")}</td>
-          <td>${escapeHtml(log.details ?? "")}</td>
-        </tr>`;
+        html +=
+          "<tr>" +
 
-    });
+          "<td>" +
+          escapeHtml(
+            log.createdAt ?? ""
+          ) +
+          "</td>" +
+
+          "<td>" +
+          escapeHtml(
+            log.userId ?? ""
+          ) +
+          "</td>" +
+
+          "<td>" +
+          escapeHtml(
+            log.action ?? ""
+          ) +
+          "</td>" +
+
+          "<td>" +
+          escapeHtml(
+            log.entity ?? ""
+          ) +
+          "</td>" +
+
+          "<td>" +
+          escapeHtml(
+            log.entityId ?? ""
+          ) +
+          "</td>" +
+
+          "<td>" +
+          escapeHtml(
+            log.details ?? ""
+          ) +
+          "</td>" +
+
+          "</tr>";
+
+      }
+    );
 
 
   html +=
-    "</tbody></table>";
+    "</tbody>" +
+    "</table>" +
+    "</div>";
 
 
   el.innerHTML =
@@ -1122,15 +1952,91 @@ function renderAudit() {
 }
 
 
-/* ==========================
+/* =====================================================
    SETTINGS
-========================== */
+===================================================== */
+
+function loadSettingsToForm() {
+
+  if (
+    !currentUser ||
+    currentUser.role !==
+    "admin"
+  )
+    return;
+
+
+  const settings = {};
+
+
+  data.settings.forEach(
+    function(item) {
+
+      settings[
+        item.key
+      ] =
+        item.value;
+
+    }
+  );
+
+
+  const nameInput =
+    document.getElementById(
+      "systemName"
+    );
+
+
+  const languageInput =
+    document.getElementById(
+      "systemLanguage"
+    );
+
+
+  if (
+    nameInput &&
+    settings.systemName
+  ) {
+
+    nameInput.value =
+      settings.systemName;
+
+  }
+
+
+  if (
+    languageInput &&
+    settings.language
+  ) {
+
+    languageInput.value =
+      settings.language;
+
+  }
+
+}
+
 
 async function saveSettings() {
 
+  if (
+    !currentUser ||
+    currentUser.role !==
+    "admin"
+  ) {
+
+    alert(
+      "শুধুমাত্র Admin Settings পরিবর্তন করতে পারবেন।"
+    );
+
+    return;
+
+  }
+
+
   const password =
     prompt(
-      "Admin Password"
+      "Admin Password:"
     );
 
 
@@ -1139,15 +2045,20 @@ async function saveSettings() {
 
 
   const systemName =
-    document.getElementById(
-      "systemName"
-    ).value;
+    document
+      .getElementById(
+        "systemName"
+      )
+      .value
+      .trim();
 
 
   const language =
-    document.getElementById(
-      "systemLanguage"
-    ).value;
+    document
+      .getElementById(
+        "systemLanguage"
+      )
+      .value;
 
 
   const result =
@@ -1178,26 +2089,93 @@ async function saveSettings() {
   );
 
 
-  if (result.success) {
+  if (
+    result.success
+  ) {
 
-    lang =
-      language;
+    document.title =
+      systemName;
 
-    toggleLang();
+    document
+      .getElementById(
+        "brand"
+      )
+      .textContent =
+      systemName;
 
   }
 
 }
 
 
-/* ==========================
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+function toggleLang() {
+
+  lang =
+    lang === "bn"
+      ? "en"
+      : "bn";
+
+
+  document
+    .querySelectorAll(
+      "[data-t]"
+    )
+    .forEach(
+      function(el) {
+
+        const key =
+          el.dataset.t;
+
+
+        if (
+          T[lang] &&
+          T[lang][key]
+        ) {
+
+          el.textContent =
+            T[lang][key];
+
+        }
+
+      }
+    );
+
+
+  const brand =
+    document.getElementById(
+      "brand"
+    );
+
+
+  if (brand) {
+
+    const settings =
+      getSettingsObject();
+
+
+    brand.textContent =
+      settings.systemName ||
+      T[lang].title;
+
+  }
+
+}
+
+
+/* =====================================================
    NAVIGATION
-========================== */
+===================================================== */
 
 function show(id) {
 
   const target =
-    document.getElementById(id);
+    document.getElementById(
+      id
+    );
 
 
   if (!target)
@@ -1214,7 +2192,8 @@ function show(id) {
 
     if (
       !currentUser ||
-      currentUser.role !== "admin"
+      currentUser.role !==
+      "admin"
     ) {
 
       alert(
@@ -1232,186 +2211,29 @@ function show(id) {
     .querySelectorAll(
       "main > section"
     )
-    .forEach(function(s) {
+    .forEach(
+      function(section) {
 
-      s.hidden = true;
+        section.hidden =
+          true;
 
-    });
+      }
+    );
 
 
-  target.hidden = false;
+  target.hidden =
+    false;
 
 }
 
 
-/* ==========================
-   ADD BUTTON
-========================== */
-
-function addDemo(sheetName) {
-
-  if (sheetName === "Activities") {
-
-    addSimpleRecord(
-      "Activities",
-      {
-        year:
-          prompt("Year"),
-        name:
-          prompt("Activity Name"),
-        purpose:
-          prompt("Purpose"),
-        openingBalance:
-          prompt("Opening Balance") || 0,
-        status:
-          prompt("Status", "Active")
-      }
-    );
-
-    return;
-  }
-
-
-  if (sheetName === "Collections") {
-
-    addSimpleRecord(
-      "Collections",
-      {
-        activityId:
-          prompt("Activity ID"),
-        donorId:
-          prompt("Donor ID"),
-        amount:
-          prompt("Amount"),
-        method:
-          prompt("Method"),
-        date:
-          prompt("Date"),
-        note:
-          prompt("Note")
-      }
-    );
-
-    return;
-  }
-
-
-  if (sheetName === "Expenses") {
-
-    addSimpleRecord(
-      "Expenses",
-      {
-        activityId:
-          prompt("Activity ID"),
-        date:
-          prompt("Date"),
-        recipient:
-          prompt("Recipient"),
-        category:
-          prompt("Category"),
-        amount:
-          prompt("Amount"),
-        method:
-          prompt("Method"),
-        voucherNo:
-          prompt("Voucher No"),
-        note:
-          prompt("Note")
-      }
-    );
-
-    return;
-  }
-
-
-  if (sheetName === "FundCustody") {
-
-    addSimpleRecord(
-      "FundCustody",
-      {
-        locationType:
-          prompt(
-            "Location: Self / Bank / Person"
-          ),
-
-        custodianName:
-          prompt(
-            "Custodian Name"
-          ),
-
-        amount:
-          prompt("Amount"),
-
-        date:
-          prompt("Date"),
-
-        reason:
-          prompt("Reason"),
-
-        terms:
-          prompt("Terms"),
-
-        witnesses:
-          prompt("Witnesses"),
-
-        expectedReturnDate:
-          prompt(
-            "Expected Return Date"
-          ),
-
-        status:
-          prompt(
-            "Status",
-            "Active"
-          ),
-
-        note:
-          prompt("Note")
-      }
-    );
-
-  }
-
-}
-
-
-async function addSimpleRecord(
-  sheetName,
-  obj
-) {
-
-  const result =
-    await api(
-      "addRecord",
-      {
-
-        sheetName,
-
-        obj,
-
-        userId:
-          currentUser.id
-
-      }
-    );
-
-
-  alert(
-    result.message
-  );
-
-
-  if (result.success)
-    load();
-
-}
-
-
-/* ==========================
+/* =====================================================
    HELPERS
-========================== */
+===================================================== */
 
-function getRows(sheetName) {
+function getRows(
+  sheetName
+) {
 
   const map = {
 
@@ -1433,16 +2255,57 @@ function getRows(sheetName) {
   };
 
 
-  return map[sheetName] || [];
+  return map[
+    sheetName
+  ] || [];
 
 }
 
 
-function money(n) {
+function getSettingsObject() {
 
-  return "৳" +
-    Number(n || 0)
-      .toLocaleString();
+  const obj = {};
+
+
+  data.settings.forEach(
+    function(item) {
+
+      obj[
+        item.key
+      ] =
+        item.value;
+
+    }
+  );
+
+
+  return obj;
+
+}
+
+
+function money(value) {
+
+  return (
+    "৳" +
+    Number(
+      value || 0
+    ).toLocaleString(
+      "en-US"
+    )
+  );
+
+}
+
+
+function today() {
+
+  return new Date()
+    .toISOString()
+    .slice(
+      0,
+      10
+    );
 
 }
 
@@ -1453,7 +2316,10 @@ function setText(
 ) {
 
   const el =
-    document.getElementById(id);
+    document.getElementById(
+      id
+    );
+
 
   if (el)
     el.textContent =
@@ -1462,9 +2328,13 @@ function setText(
 }
 
 
-function escapeHtml(value) {
+function escapeHtml(
+  value
+) {
 
-  return String(value)
+  return String(
+    value ?? ""
+  )
     .replace(
       /&/g,
       "&amp;"
@@ -1489,9 +2359,13 @@ function escapeHtml(value) {
 }
 
 
-function escapeAttr(value) {
+function escapeJs(
+  value
+) {
 
-  return String(value)
+  return String(
+    value ?? ""
+  )
     .replace(
       /\\/g,
       "\\\\"
@@ -1499,6 +2373,40 @@ function escapeAttr(value) {
     .replace(
       /'/g,
       "\\'"
+    )
+    .replace(
+      /\r/g,
+      "\\r"
+    )
+    .replace(
+      /\n/g,
+      "\\n"
     );
 
 }
+
+
+/* =====================================================
+   ENTER KEY LOGIN
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key ===
+      "Enter" &&
+      document
+        .getElementById(
+          "loginPage"
+        )
+        .hidden === false
+    ) {
+
+      doLogin();
+
+    }
+
+  }
+);
