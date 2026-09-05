@@ -3,7 +3,7 @@
    FRONTEND v2 - FIXED API VERSION
 ===================================================== */
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzvVRRfw0DdDnz2XHWQXmQne6gVPGajK1_e8RXeujl90hn83QJIDToKXruYF1C7kGZ8/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwym4UGgPQqmffw634faS0NplbfKLlsizzFI6cvO2l0nErvB1RPlHncmmeBXaTrOP6oCA/exec";
 
 let lang = "bn";
 let currentUser = null;
